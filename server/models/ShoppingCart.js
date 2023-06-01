@@ -8,9 +8,15 @@ const shoppingCartSchema = new Schema({
     },
     movies: [
         {
-            type: Schema.Types.ObjectId,
-            ref: "MovieShoppingCart",
-            required: true,
+            movie: {
+                type: Schema.Types.ObjectId,
+                ref: "Movie",
+                required: true,
+            },
+            quantity: {
+                type: Number,
+                required: true,
+            },
         },
     ],
 });
