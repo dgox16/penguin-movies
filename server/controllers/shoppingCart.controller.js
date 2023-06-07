@@ -2,8 +2,12 @@ import ShoppingCart from "../models/ShoppingCart.js";
 import { ObjectId } from "mongodb";
 
 export const getShoppingCart = async (req, res) => {
-    const shoppingCart = await ShoppingCart.findById(req.params.id);
-    res.json(shoppingCart);
+    try {
+        const shoppingCart = await ShoppingCart.findById(req.params.id).populate("movies.movie");
+        res.json(shoppingCart);
+    } catch (_error) {
+        res.status(400).send({ error: "id used is malformed" });
+    }
 };
 
 export const updateShoppingCart = async (req, res) => {

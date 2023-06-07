@@ -1,11 +1,6 @@
 import { Schema, model } from "mongoose";
 
 const shoppingCartSchema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    },
     movies: [
         {
             movie: {

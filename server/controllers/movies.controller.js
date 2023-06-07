@@ -22,13 +22,9 @@ export const getMovie = async (req, res) => {
 };
 
 export const saveMovie = async (req, res) => {
-    try {
-        const { title, year, imageUrl, price, stock } = req.body;
-        const newMovie = new Movie({ title, year, imageUrl, price, stock });
-        const movie = await newMovie.save();
-        res.json(movie);
-    } catch (error) {
-        console.error(error.message);
-        return res.status(500).json({ message: error.message });
-    }
+    console.log(req.user);
+    const { title, year, imageUrl, price, stock } = req.body;
+    const newMovie = new Movie({ title, year, imageUrl, price, stock });
+    const movie = await newMovie.save();
+    res.json(movie);
 };

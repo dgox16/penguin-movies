@@ -1,14 +1,10 @@
 import { Router } from "express";
-import User from "../models/User.js";
-import { createUser } from "../controllers/users.controller.js";
+import { getUsers, login, register } from "../controllers/users.controller.js";
 
 const router = Router();
 
-router.get("/api/user", async (req, res) => {
-    const users = await User.find();
-    res.json(users);
-});
-
-router.post("/api/user", createUser);
+router.get("/api/user", getUsers);
+router.post("/api/user/register", register);
+router.post("/api/user/login", login);
 
 export default router;

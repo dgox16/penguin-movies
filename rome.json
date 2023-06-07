@@ -1,17 +1,17 @@
 {
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"all": true,
-			"nursery": {
-				"all": false
-			}
-		}
-	},
-	"formatter": {
-		"formatWithErrors": false,
-		"indentStyle": "space",
-		"indentSize": 4,
-		"lineWidth": 100
-	}
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "all": true,
+            "nursery": {
+                "all": false
+            }
+        }
+    },
+    "formatter": {
+        "formatWithErrors": false,
+        "indentStyle": "space",
+        "indentSize": 4,
+        "lineWidth": 100
+    }
 }

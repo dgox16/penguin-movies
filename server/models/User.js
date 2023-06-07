@@ -5,6 +5,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
         trim: true,
+        unique: true,
     },
     password: {
         type: String,
@@ -23,6 +24,12 @@ const userSchema = new Schema({
     },
     isAdmin: {
         type: Boolean,
+        required: true,
+    },
+    shoppingCart: {
+        type: Schema.Types.ObjectId,
+        ref: "ShoppingCart",
+        required: true,
     },
 });
 
