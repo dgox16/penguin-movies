@@ -10,29 +10,37 @@ export const getUsers = async (_req, res) => {
 };
 
 export const register = async (req, res) => {
-    const { username, password, firstName, lastName, isAdmin } = req.body;
+    const { username, password, firstName, lastName } = req.body;
     const passwordHash = await encryptPassword(password);
 
     const userFound = await User.findOne({ username });
 
     if (userFound) {
-        return res.status(401).json({
-            error: "This username already exist",
-        });
-    } else {
-        const newShoppingCart = new ShoppingCart({ movies: [] });
-        await newShoppingCart.save();
-        const newUser = new User({
-            username,
-            password: passwordHash,
-            firstName,
-            lastName,
-            isAdmin,
-            shoppingCart: newShoppingCart._id,
-        });
-        const user = await newUser.save();
-        res.json(user);
+        return res.status(401).json(["This username already exist"]);
     }
+
+    const newShoppingCart = new ShoppingCart({ movies: [] });
+    await newShoppingCart.save();
+    const newUser = new User({
+        username,
+        password: passwordHash,
+        firstName,
+        lastName,
+        isAdmin: true,
+        shoppingCart: newShoppingCart._id,
+    });
+    const user = await newUser.save();
+    const userForToken = {
+        id: user._id,
+        username: user.username,
+        isAdmin: user.isAdmin,
+    };
+
+    const token = jwt.sign(userForToken, SECRET, {
+        expiresIn: 60 * 60 * 24 * 7,
+    });
+    res.cookie("token", token);
+    res.json(user);
 };
 
 export const login = async (req, res) => {
@@ -41,24 +49,48 @@ export const login = async (req, res) => {
     const user = await User.findOne({ username });
     const passwordCorrect = user == null ? false : await comparePassword(user.password, password);
 
+    if (!passwordCorrect) {
+        return res.status(401).json(["Invalid user or password"]);
+    }
     const userForToken = {
         id: user._id,
         username: user.username,
+        isAdmin: user.isAdmin,
     };
 
     const token = jwt.sign(userForToken, SECRET, {
         expiresIn: 60 * 60 * 24 * 7,
     });
-
-    if (!passwordCorrect) {
-        return res.status(401).json({
-            error: "Invalid user or password",
-        });
-    }
+    res.cookie("token", token, {
+        sameSite: "none",
+        secure: true,
+    });
 
     res.send({
         name: user.firstName,
         username: user.username,
         token,
+    });
+};
+
+export const verify = async (req, res) => {
+    const { token } = req.cookies;
+
+    if (!token) {
+        return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    jwt.verify(token, SECRET, async (err, user) => {
+        if (err) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+        const userFound = await User.findById(user.id);
+        if (!userFound) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+        return res.json({
+            id: userFound._id,
+            username: userFound.username,
+        });
     });
 };
