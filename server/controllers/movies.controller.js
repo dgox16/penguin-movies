@@ -1,3 +1,5 @@
+import fs from "fs-extra";
+import { uploadImage } from "../libs/cloudinary.js";
 import Movie from "../models/Movie.js";
 
 export const getMovies = async (_req, res) => {
@@ -22,9 +24,28 @@ export const getMovie = async (req, res) => {
 };
 
 export const saveMovie = async (req, res) => {
-    console.log(req.user);
-    const { title, year, imageUrl, price, stock } = req.body;
-    const newMovie = new Movie({ title, year, imageUrl, price, stock });
+    const { title, year, price, stock } = req.body;
+    let image = {};
+
+    if (req.files?.image) {
+        const result = await uploadImage(req.files.image.tempFilePath);
+        await fs.remove(req.files.image.tempFilePath);
+        image = {
+            url: result.secure_url,
+            public_id: result.public_id,
+        };
+    }
+    const newMovie = new Movie({ title, year, image, price, stock });
     const movie = await newMovie.save();
     res.json(movie);
+};
+
+export const getMoviesByWord = async (req, res) => {
+    try {
+        const { word } = req.query;
+        const movies = await Movie.find({ title: { $regex: word, $options: "i" } });
+        res.json(movies);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
 };

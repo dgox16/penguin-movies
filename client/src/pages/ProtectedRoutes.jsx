@@ -8,7 +8,7 @@ export const ProtectedRoutes = () => {
         return <h1>Loading</h1>;
     }
     if (!(loading || isAuthenticated)) {
-        return <Navigate to="/login" replace={true} />;
+        return <Navigate to="/" replace={true} />;
     }
     return (
         <div>

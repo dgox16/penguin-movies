@@ -1,5 +1,6 @@
 import { SECRET } from "../envConfig.js";
 import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 export const checkUser = (req, res, next) => {
     const authorization = req.get("authorization");
@@ -28,11 +29,11 @@ export const authRequired = (req, res, next) => {
         return res.status(401).json({ error: "Token Missing" });
     }
 
-    jwt.verify(token, SECRET, (err, user) => {
+    jwt.verify(token, SECRET, async (err, user) => {
         if (err) {
             return res.status(403).json({ error: "Token invalid" });
         }
-        req.user = user;
+        req.user = await User.findById(user.id);
         next();
     });
 };

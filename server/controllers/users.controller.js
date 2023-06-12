@@ -26,7 +26,7 @@ export const register = async (req, res) => {
         password: passwordHash,
         firstName,
         lastName,
-        isAdmin: true,
+        isAdmin: false,
         shoppingCart: newShoppingCart._id,
     });
     const user = await newUser.save();
@@ -69,6 +69,7 @@ export const login = async (req, res) => {
     res.send({
         name: user.firstName,
         username: user.username,
+        isAdmin: user.isAdmin,
         token,
     });
 };
@@ -91,6 +92,8 @@ export const verify = async (req, res) => {
         return res.json({
             id: userFound._id,
             username: userFound.username,
+            shoppingCart: userFound.shoppingCart,
+            isAdmin: userFound.isAdmin,
         });
     });
 };

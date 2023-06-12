@@ -6,20 +6,32 @@ import { Register } from "./pages/Register";
 import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoutes } from "./pages/ProtectedRoutes";
 import { Navbar } from "./components/Navbar";
+import { MoviesProvider } from "./context/MoviesContext";
+import { NewOrder } from "./pages/NewOrder";
+import { ViewMovie } from "./pages/ViewMovie";
+import { ShoppingCart } from "./pages/ShoppingCart";
+import { ProtectedLoading } from "./pages/ProtectedLoading";
 
 function App() {
     return (
         <AuthProvider>
-            <BrowserRouter>
-                <Navbar />
-                <Routes>
-                    <Route element={<ProtectedRoutes />}>
-                        <Route path="/home" element={<Home />} />
-                    </Route>
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/login" element={<Login />} />
-                </Routes>
-            </BrowserRouter>
+            <MoviesProvider>
+                <BrowserRouter>
+                    <ProtectedLoading>
+                        <Navbar />
+                        <Routes>
+                            <Route element={<ProtectedRoutes />}>
+                                <Route path="/" element={<Home />} />
+                                <Route path="/order/new" element={<NewOrder />} />
+                                <Route path="/shoppingCart" element={<ShoppingCart />} />
+                                <Route path="/movies/:id" element={<ViewMovie />} />
+                            </Route>
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/login" element={<Login />} />
+                        </Routes>
+                    </ProtectedLoading>
+                </BrowserRouter>
+            </MoviesProvider>
         </AuthProvider>
     );
 }

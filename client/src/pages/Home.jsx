@@ -1,25 +1,14 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { MoviesHome } from "../components/MovieHome";
+import { useMovies } from "../context/MoviesContext";
 
 export const Home = () => {
-    const [movies, setMovies] = useState([]);
-    const getMovies = async () => {
-        const movies = await axios.get("http://localhost:4000/api/movies", {
-            withCredentials: true,
-        });
-        setMovies(movies.data);
-    };
-
-    useEffect(() => {
-        getMovies();
-        // const userLogged
-    }, []);
+    const { movies } = useMovies();
 
     return (
-        <div>
-            {movies.map((movie) => (
-                <p key={movie._id}>{movie.title}</p>
-            ))}
-        </div>
+        <section className="bg-gray-100 dark:bg-gray-900 py-10 px-12">
+            <div className="grid grid-flow-row gap-8 text-neutral-600 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-6">
+                <MoviesHome movies={movies} />
+            </div>
+        </section>
     );
 };

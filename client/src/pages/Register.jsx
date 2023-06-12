@@ -13,7 +13,7 @@ export const Register = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            navigate("/home");
+            navigate("/");
         }
     }, [isAuthenticated]);
 

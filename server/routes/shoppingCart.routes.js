@@ -1,9 +1,15 @@
 import { Router } from "express";
-import { getShoppingCart, updateShoppingCart } from "../controllers/shoppingCart.controller.js";
+import { authRequired } from "../middleware/checkUser.js";
+import {
+    buyShoppingCart,
+    getShoppingCart,
+    updateShoppingCart,
+} from "../controllers/shoppingCart.controller.js";
 
 const router = Router();
 
-router.get("/api/shoppingCart/:id", getShoppingCart);
-router.put("/api/shoppingCart/:id", updateShoppingCart);
+router.get("/api/shoppingCart/", authRequired, getShoppingCart);
+router.get("/api/shoppingCart/buy", authRequired, buyShoppingCart);
+router.put("/api/shoppingCart/", authRequired, updateShoppingCart);
 
 export default router;
