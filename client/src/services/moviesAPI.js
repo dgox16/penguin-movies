@@ -51,3 +51,8 @@ export const buyShoppingCartRequest = async () => {
     const res = await axios.get("/shoppingCart/buy");
     return res.data;
 };
+
+export const getPurchasesRequest = async () => {
+    const res = await axios.get("/purchases");
+    return res.data;
+};

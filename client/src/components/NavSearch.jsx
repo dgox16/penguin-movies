@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useMovies } from "../context/MoviesContext";
 
 export const NavSearch = () => {
-    const [selectedOptions, setSelectedOptions] = useState();
+    const [selectedOptions] = useState();
     const { movies } = useMovies();
     const navigate = useNavigate();
 

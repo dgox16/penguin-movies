@@ -1,13 +1,14 @@
 import Movie from "../models/Movie.js";
+import Purchase from "../models/Purchase.js";
 import ShoppingCart from "../models/ShoppingCart.js";
 import { ObjectId } from "mongodb";
+import moment from "moment";
 
 export const getShoppingCart = async (req, res) => {
     try {
         const shoppingCart = await ShoppingCart.findById(req.user.shoppingCart).populate(
             "movies.movie",
         );
-        console.log(shoppingCart);
         res.json(shoppingCart);
     } catch (_error) {
         res.status(400).send({ error: "id used is malformed" });
@@ -27,7 +28,6 @@ export const updateShoppingCart = async (req, res) => {
         { movies },
         { new: true },
     );
-    console.log(shoppingCartModified);
     res.json(shoppingCartModified);
 };
 
@@ -41,8 +41,17 @@ export const buyShoppingCart = async (req, res) => {
                 new: true,
             },
         );
-        console.log(modifiedPost);
     });
+
+    const movies = shoppingCart.movies.map((movie) => {
+        return {
+            movie: movie.movie,
+            quantity: movie.quantity,
+        };
+    });
+
+    const newPurchase = new Purchase({ user: req.user.id, movies });
+    const purchase = await newPurchase.save();
 
     const shoppingCartModified = await ShoppingCart.findByIdAndUpdate(
         req.user.shoppingCart,
@@ -50,5 +59,10 @@ export const buyShoppingCart = async (req, res) => {
         { new: true },
     );
 
-    res.json(shoppingCartModified);
+    res.json(purchase);
+};
+
+export const getAllPurchases = async (req, res) => {
+    const purchase = await Purchase.find().populate("movies.movie").populate("user");
+    res.json(purchase);
 };

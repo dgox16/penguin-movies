@@ -4,33 +4,45 @@ const ListOfMovies = ({ movies }) => {
     return (
         <>
             {movies.map((movie) => (
-                <div
-                    key={movie._id}
-                    className="my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1"
-                >
+                <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <Link
                         to={{
                             pathname: `/movies/${movie._id}`,
                         }}
                         state={{ movie: movie }}
                     >
-                        <figure>
-                            <img
-                                src={movie.image.url}
-                                className="rounded-t h-96 w-full object-cover"
-                                alt="https://pbs.twimg.com/media/C5OTOt3UEAAExIk.jpg"
-                            />
-                            <figcaption className="p-4">
-                                <p className="text-lg mb-4 font-bold leading-relaxed text-gray-800 dark:text-gray-300">
-                                    {movie.title}
-                                </p>
-                                <small className="leading-5 text-gray-500 dark:text-gray-400">
-                                    {movie.year} - ${movie.price} - {movie.stock}
-                                </small>
-                            </figcaption>
-                        </figure>
+                        <img
+                            className="h-96 rounded-t-lg w-full"
+                            src={movie.image.url}
+                            alt="product"
+                        />
                     </Link>
-                    ;
+                    <div className="px-5 pb-5">
+                        <Link
+                            to={{
+                                pathname: `/movies/${movie._id}`,
+                            }}
+                            state={{ movie: movie }}
+                        >
+                            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                {movie.title}
+                            </h5>
+                        </Link>
+                        <div className="flex items-center justify-between mt-3">
+                            <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                                ${movie.price}
+                            </span>
+                            <Link
+                                to={{
+                                    pathname: `/movies/${movie._id}`,
+                                }}
+                                state={{ movie: movie }}
+                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            >
+                                View
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             ))}
         </>

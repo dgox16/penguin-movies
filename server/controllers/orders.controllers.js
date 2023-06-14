@@ -1,6 +1,7 @@
 import Movie from "../models/Movie.js";
 import Orders from "../models/Orders.js";
 import { ObjectId } from "mongodb";
+import moment from "moment";
 
 export const newOrder = async (req, res) => {
     if (!req.user.isAdmin) {
@@ -27,6 +28,13 @@ export const newOrder = async (req, res) => {
         console.log(modifiedPost);
     });
 
-    const order = new Orders({ user: new ObjectId(id), movies });
+    const newOrder = new Orders({ user: new ObjectId(id), movies });
+
+    const order = await newOrder.save();
     res.json(order);
+};
+
+export const getAllOrders = async (req, res) => {
+    const orders = await Orders.find().populate("movies.movie").populate("user");
+    res.json(orders);
 };

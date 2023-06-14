@@ -2,11 +2,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 import {
     buyShoppingCartRequest,
     getAllMoviesRequest,
+    getPurchasesRequest,
     getShoppingCartRequest,
     newMovieOrderRequest,
     updateShoppingCartRequest,
 } from "../services/moviesAPI";
-import { newOrderRequest } from "../services/orderAPI";
+import { getOrdersRequest, newOrderRequest } from "../services/orderAPI";
 import { useAuth } from "./AuthContext";
 
 const MoviesContext = createContext();
@@ -20,11 +21,15 @@ export const useMovies = () => {
 };
 
 export const MoviesProvider = ({ children }) => {
+    const { user, isAuthenticated } = useAuth();
     const [movies, setMovies] = useState([]);
     const [shoppingCart, setShoppingCart] = useState([]);
-    const { user, isAuthenticated } = useAuth();
+    const [orders, setOrders] = useState([]);
+    const [purchases, setPurchases] = useState([]);
     const [loadingMovies, setLoadingMovies] = useState(true);
     const [loadingSC, setLoadingSC] = useState(true);
+    const [loadingOrders, setLoadingOrders] = useState(true);
+    const [loadingPurchases, setLoadingPurchases] = useState(true);
 
     useEffect(() => {
         const getData = async () => {
@@ -37,9 +42,23 @@ export const MoviesProvider = ({ children }) => {
             setShoppingCart(sc);
             setLoadingSC(false);
         };
+        const getOrders = async () => {
+            const o = await getOrdersRequest();
+            setOrders(o);
+            setLoadingOrders(false);
+        };
+        const getPurchases = async () => {
+            const p = await getPurchasesRequest();
+            console.log("dsadsd");
+            console.log(p);
+            setPurchases(p);
+            setLoadingPurchases(false);
+        };
         if (isAuthenticated) {
             getData();
             getShoppingCart();
+            getOrders();
+            getPurchases();
         }
     }, [user]);
 
@@ -86,6 +105,8 @@ export const MoviesProvider = ({ children }) => {
         setShoppingCart(sc);
         const moviesAll = await getAllMoviesRequest();
         setMovies(moviesAll);
+        const purchasesAll = await getPurchasesRequest();
+        setPurchases(purchasesAll);
     };
 
     const updateMoviesStock = async (movies) => {
@@ -97,7 +118,9 @@ export const MoviesProvider = ({ children }) => {
         });
         const res = await newOrderRequest(order);
         const moviesAll = await getAllMoviesRequest();
+        const ordersAll = await getOrdersRequest();
         setMovies(moviesAll);
+        setOrders(ordersAll);
     };
 
     return (
@@ -113,6 +136,10 @@ export const MoviesProvider = ({ children }) => {
                 loadingMovies,
                 loadingSC,
                 buyShoppingCart,
+                orders,
+                loadingOrders,
+                purchases,
+                loadingPurchases,
             }}
         >
             {children}
