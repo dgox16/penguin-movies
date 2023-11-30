@@ -1,15 +1,42 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuthStore } from "../store/auth";
+import { useEffect } from "react";
+import { verifyTokenRequest } from "../services/usersAdministration";
+import Cookies from "js-cookie";
 
 export const ProtectedRoutes = () => {
-    const { isAuthenticated, loading } = useAuth();
+    const { isAuthenticated, logout, setLoading, setToken, setUser } = useAuthStore();
 
-    if (loading) {
-        return <h1>Loading</h1>;
-    }
-    if (!loading && !isAuthenticated) {
+    useEffect(() => {
+        const checkLogin = async () => {
+            const cookies = Cookies.get();
+            if (!cookies.token) {
+                logout();
+                setLoading(false);
+            }
+            try {
+                const res = await verifyTokenRequest(cookies.token);
+                if (!res) {
+                    logout();
+                    setLoading(false);
+                    return;
+                }
+                setUser(res);
+                setToken(res.token);
+                setLoading(false);
+            } catch (_error) {
+                logout();
+                setLoading(false);
+            }
+        };
+
+        checkLogin();
+    }, []);
+
+    if (!isAuthenticated) {
         return <Navigate to="/login" replace={true} />;
     }
+
     return (
         <div>
             <Outlet />

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
-import { useMovies } from "../context/MoviesContext";
+import { useMoviesStore } from "../../store/movies";
 
-export const NavSearch = () => {
+export const NavbarSearch = () => {
     const [selectedOptions] = useState();
-    const { movies } = useMovies();
+    const { movies } = useMoviesStore();
     const navigate = useNavigate();
 
     function handleSelect(data) {

@@ -8,7 +8,7 @@ import {
     updateShoppingCartRequest,
 } from "../services/moviesAPI";
 import { getOrdersRequest, newOrderRequest } from "../services/orderAPI";
-import { useAuth } from "./AuthContext";
+import { useAuthStore } from "../store/auth";
 
 const MoviesContext = createContext();
 
@@ -21,7 +21,7 @@ export const useMovies = () => {
 };
 
 export const MoviesProvider = ({ children }) => {
-    const { user, isAuthenticated } = useAuth();
+    const { user, isAuthenticated } = useAuthStore();
     const [movies, setMovies] = useState([]);
     const [shoppingCart, setShoppingCart] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -49,29 +49,29 @@ export const MoviesProvider = ({ children }) => {
         };
         const getPurchases = async () => {
             const p = await getPurchasesRequest();
-            console.log("dsadsd");
-            console.log(p);
             setPurchases(p);
             setLoadingPurchases(false);
         };
         if (isAuthenticated) {
-            getData();
-            getShoppingCart();
-            getOrders();
-            getPurchases();
+            // getData();
+            // getShoppingCart();
+            // getOrders();
+            // getPurchases();
         }
     }, [user]);
 
     useEffect(() => {
         const updateShoppingCartDB = async () => {
+            if (shoppingCart.length === 0) {
+                return;
+            }
             const aux = shoppingCart.movies.map((m) => {
                 return {
                     movie: m.movie._id,
                     quantity: m.quantity,
                 };
             });
-            const res = await updateShoppingCartRequest(aux);
-            console.log(res);
+            await updateShoppingCartRequest(aux);
         };
         if (isAuthenticated) {
             updateShoppingCartDB();
@@ -100,7 +100,6 @@ export const MoviesProvider = ({ children }) => {
     const buyShoppingCart = async () => {
         const res = await buyShoppingCartRequest();
 
-        console.log(res);
         const sc = await getShoppingCartRequest();
         setShoppingCart(sc);
         const moviesAll = await getAllMoviesRequest();

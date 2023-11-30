@@ -39,8 +39,14 @@ export const register = async (req, res) => {
     const token = jwt.sign(userForToken, SECRET, {
         expiresIn: 60 * 60 * 24 * 7,
     });
+
     res.cookie("token", token);
-    res.json(user);
+    res.send({
+        name: user.firstName,
+        username: user.username,
+        isAdmin: user.isAdmin,
+        token,
+    });
 };
 
 export const login = async (req, res) => {
@@ -61,11 +67,8 @@ export const login = async (req, res) => {
     const token = jwt.sign(userForToken, SECRET, {
         expiresIn: 60 * 60 * 24 * 7,
     });
-    res.cookie("token", token, {
-        sameSite: "none",
-        secure: true,
-    });
 
+    res.cookie("token", token);
     res.send({
         name: user.firstName,
         username: user.username,
@@ -94,6 +97,7 @@ export const verify = async (req, res) => {
             username: userFound.username,
             shoppingCart: userFound.shoppingCart,
             isAdmin: userFound.isAdmin,
+            token,
         });
     });
 };

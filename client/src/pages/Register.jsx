@@ -1,14 +1,16 @@
 import { useForm } from "react-hook-form";
-import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import { useEffect } from "react";
+import { handleRegister } from "../services/usersAdministration";
+import { useAuthStore } from "../store/auth";
 export const Register = () => {
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const { signup, isAuthenticated, errors: registerError } = useAuth();
+
+    const { setUser, setToken, isAuthenticated, errors: registerError, setErrors } = useAuthStore();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,6 +18,17 @@ export const Register = () => {
             navigate("/");
         }
     }, [isAuthenticated]);
+
+    const signup = async (values) => {
+        try {
+            const res = await handleRegister(values);
+            setUser(res);
+            setToken(res.token);
+            navigate("/");
+        } catch (error) {
+            setErrors(error.response.data);
+        }
+    };
 
     const onSubmit = handleSubmit((values) => {
         signup(values);

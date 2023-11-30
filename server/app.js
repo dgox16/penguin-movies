@@ -6,9 +6,11 @@ import orderRoutes from "./routes/orders.routes.js";
 import shoppingCartRoutes from "./routes/shoppingCart.routes.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
 
 const app = express();
 
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(
     fileupload({

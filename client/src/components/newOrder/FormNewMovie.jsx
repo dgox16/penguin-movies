@@ -1,13 +1,20 @@
 import { useForm } from "react-hook-form";
-import { useMovies } from "../context/MoviesContext";
+import { useMoviesStore } from "../../store/movies";
+import { newMovieOrderRequest } from "../../services/moviesAPI";
 
-export const FormOrder = () => {
-    const { addMovie } = useMovies();
+export const FormNewMovie = () => {
+    const { setMovies, movies } = useMoviesStore();
+
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
+
+    const addMovie = async (values) => {
+        const res = await newMovieOrderRequest(values);
+        setMovies([...movies, res]);
+    };
 
     const onSubmit = handleSubmit((values) => {
         addMovie(values);
@@ -18,7 +25,7 @@ export const FormOrder = () => {
             <form onSubmit={onSubmit}>
                 <div className="mb-6">
                     <label
-                        for="email"
+                        htmlFor="email"
                         className="block mb-2 font-medium text-gray-900 dark:text-white"
                     >
                         The title:
@@ -33,7 +40,7 @@ export const FormOrder = () => {
                 </div>
                 <div className="mb-6">
                     <label
-                        for="email"
+                        htmlFor="email"
                         className="block mb-2 font-medium text-gray-900 dark:text-white"
                     >
                         The year:
@@ -48,7 +55,7 @@ export const FormOrder = () => {
                 </div>
                 <div className="mb-6">
                     <label
-                        for="email"
+                        htmlFor="email"
                         className="block mb-2 font-medium text-gray-900 dark:text-white"
                     >
                         The Price:
@@ -63,7 +70,7 @@ export const FormOrder = () => {
                 </div>
                 <div className="mb-6">
                     <label
-                        for="email"
+                        htmlFor="email"
                         className="block mb-2 font-medium text-gray-900 dark:text-white"
                     >
                         The Image:

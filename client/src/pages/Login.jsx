@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
-import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import { useEffect } from "react";
+import { handleLogin } from "../services/usersAdministration";
+import { useAuthStore } from "../store/auth";
 
 export const Login = () => {
     const {
@@ -9,14 +10,41 @@ export const Login = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const { signin, isAuthenticated, errors: loginError } = useAuth();
+
     const navigate = useNavigate();
+    const {
+        setUser,
+        setToken,
+        isAuthenticated,
+        errors: loginError,
+        setErrors,
+    } = useAuthStore();
 
     useEffect(() => {
         if (isAuthenticated) {
             navigate("/");
         }
     }, [isAuthenticated]);
+
+    useEffect(() => {
+        if (loginError.length > 0) {
+            const timer = setTimeout(() => {
+                setErrors([]);
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [loginError]);
+
+    const signin = async (values) => {
+        try {
+            const res = await handleLogin(values);
+            setUser(res);
+            setToken(res.token);
+            navigate("/");
+        } catch (error) {
+            setErrors(error.response.data);
+        }
+    };
 
     const onSubmit = handleSubmit((values) => {
         signin(values);
@@ -26,12 +54,14 @@ export const Login = () => {
         <div className="flex items-center justify-center mt-60">
             <main className="bg-gray-800 max-w-md p-10 rounded-md">
                 {loginError.map((err) => (
-                    <div className="bg-red-500 text-white rounded-md">{err}</div>
+                    <div className="bg-red-500 text-white rounded-md" key={err}>
+                        {err}
+                    </div>
                 ))}
                 <form onSubmit={onSubmit}>
                     <div className="mb-6">
                         <label
-                            for="email"
+                            htmlFor="email"
                             className="block mb-2 font-medium text-gray-900 dark:text-white"
                         >
                             Your username
@@ -42,7 +72,9 @@ export const Login = () => {
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Username"
                         />
-                        {errors.username && <p className="text-red-500">Username is required</p>}
+                        {errors.username && (
+                            <p className="text-red-500">Username is required</p>
+                        )}
                     </div>
                     <div className="mb-6">
                         <label className="block mb-2 font-medium text-gray-900 dark:text-white">
@@ -54,7 +86,9 @@ export const Login = () => {
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Password"
                         />
-                        {errors.password && <p className="text-red-500">Password is required</p>}
+                        {errors.password && (
+                            <p className="text-red-500">Password is required</p>
+                        )}
                     </div>
                     <button
                         type="submit"
