@@ -19,9 +19,10 @@ export const ProtectedRoutes = () => {
                     if (!res) {
                         logout();
                         setLoading(false);
-                        return;
+                        return <Navigate to="/login" replace={true} />;
                     }
                     setUser(res);
+                    console.log(res);
                     setToken(res.token);
                     setLoading(false);
                 } catch (_error) {
