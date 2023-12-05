@@ -41,7 +41,11 @@ export const Login = () => {
             const res = await handleLogin(values);
             setUser(res);
             setToken(res.token);
-            Cookies.set("token", res.token, { expires: 2, sameSite: "None" });
+            Cookies.set("token", res.token, {
+                expires: 2,
+                sameSite: "None",
+                secure: true,
+            });
             navigate("/");
         } catch (error) {
             setErrors(error.response.data);
