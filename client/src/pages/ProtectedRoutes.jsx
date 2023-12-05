@@ -30,19 +30,16 @@ export const ProtectedRoutes = () => {
                 }
             }
         };
-        console.log("Hola");
-
         checkLogin();
     }, []);
 
     if (!isAuthenticated) {
-        console.log(isAuthenticated);
         return <Navigate to="/login" replace={true} />;
-    } else {
-        return (
-            <div>
-                <Outlet />
-            </div>
-        );
     }
+
+    return (
+        <div>
+            <Outlet />
+        </div>
+    );
 };

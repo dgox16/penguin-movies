@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { handleLogin } from "../services/usersAdministration";
 import { useAuthStore } from "../store/auth";
+import Cookies from "js-cookie";
 
 export const Login = () => {
     const {
@@ -40,6 +41,7 @@ export const Login = () => {
             const res = await handleLogin(values);
             setUser(res);
             setToken(res.token);
+            Cookies.set("token", res.token, { expires: 2 });
             navigate("/");
         } catch (error) {
             setErrors(error.response.data);
