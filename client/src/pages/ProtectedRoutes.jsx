@@ -37,12 +37,12 @@ export const ProtectedRoutes = () => {
 
     if (!isAuthenticated) {
         console.log(isAuthenticated);
-        // return <Navigate to="/login" replace={true} />;
+        return <Navigate to="/login" replace={true} />;
+    } else {
+        return (
+            <div>
+                <Outlet />
+            </div>
+        );
     }
-
-    return (
-        <div>
-            <Outlet />
-        </div>
-    );
 };
