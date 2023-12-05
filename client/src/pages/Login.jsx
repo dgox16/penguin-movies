@@ -18,6 +18,7 @@ export const Login = () => {
         isAuthenticated,
         errors: loginError,
         setErrors,
+        loading,
     } = useAuthStore();
 
     // useEffect(() => {
@@ -51,6 +52,10 @@ export const Login = () => {
     const onSubmit = handleSubmit((values) => {
         signin(values);
     });
+    if (loading) {
+        console.log("hola");
+        return <p>Hola</p>;
+    }
 
     return (
         <div className="flex items-center justify-center mt-60">
