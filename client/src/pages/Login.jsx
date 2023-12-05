@@ -20,13 +20,13 @@ export const Login = () => {
         setErrors,
     } = useAuthStore();
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate("/");
-        } else {
-            console.log("Holaaaaaaa");
-        }
-    }, [isAuthenticated]);
+    // useEffect(() => {
+    //     if (isAuthenticated) {
+    //         navigate("/");
+    //     } else {
+    //         console.log("Holaaaaaaa");
+    //     }
+    // }, [isAuthenticated]);
 
     useEffect(() => {
         if (loginError.length > 0) {
