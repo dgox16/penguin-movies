@@ -43,7 +43,7 @@ export const Login = () => {
             setToken(res.token);
             Cookies.set("token", res.token, {
                 expires: 2,
-                sameSite: "None",
+                sameSite: "Strict",
                 secure: true,
             });
             navigate("/");
