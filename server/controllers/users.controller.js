@@ -70,9 +70,6 @@ export const login = async (req, res) => {
         expiresIn: 60 * 60 * 24 * 7,
     });
 
-    console.log(token);
-
-    res.cookie("token", token);
     res.send({
         name: user.firstName,
         username: user.username,
@@ -83,8 +80,6 @@ export const login = async (req, res) => {
 
 export const verify = async (req, res) => {
     const { token } = req.cookies;
-
-    console.log(token);
 
     if (!token) {
         return res.status(401).json({ error: "Unauthorized" });
