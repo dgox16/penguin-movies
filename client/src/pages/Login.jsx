@@ -23,6 +23,8 @@ export const Login = () => {
     useEffect(() => {
         if (isAuthenticated) {
             navigate("/");
+        } else {
+            console.log("Holaaaaaaa");
         }
     }, [isAuthenticated]);
 
