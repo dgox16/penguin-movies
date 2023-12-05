@@ -13,20 +13,21 @@ export const ProtectedRoutes = () => {
             if (token === "") {
                 logout();
                 setLoading(false);
-            }
-            try {
-                const res = await verifyTokenRequest(token);
-                if (!res) {
+            } else {
+                try {
+                    const res = await verifyTokenRequest(token);
+                    if (!res) {
+                        logout();
+                        setLoading(false);
+                        return;
+                    }
+                    setUser(res);
+                    setToken(res.token);
+                    setLoading(false);
+                } catch (_error) {
                     logout();
                     setLoading(false);
-                    return;
                 }
-                setUser(res);
-                setToken(res.token);
-                setLoading(false);
-            } catch (_error) {
-                logout();
-                setLoading(false);
             }
         };
 
