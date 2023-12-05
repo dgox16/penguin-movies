@@ -19,10 +19,9 @@ export const ProtectedRoutes = () => {
                     if (!res) {
                         logout();
                         setLoading(false);
-                        return <Navigate to="/login" replace={true} />;
+                        return;
                     }
                     setUser(res);
-                    console.log(res);
                     setToken(res.token);
                     setLoading(false);
                 } catch (_error) {
@@ -36,6 +35,7 @@ export const ProtectedRoutes = () => {
     }, []);
 
     if (!isAuthenticated) {
+        console.log(isAuthenticated);
         return <Navigate to="/login" replace={true} />;
     }
 
