@@ -29,6 +29,7 @@ export const register = async (req, res) => {
         isAdmin: false,
         shoppingCart: newShoppingCart._id,
     });
+    console.log(newUser);
     const user = await newUser.save();
     const userForToken = {
         id: user._id,
@@ -53,7 +54,8 @@ export const login = async (req, res) => {
     const { username, password } = req.body;
 
     const user = await User.findOne({ username });
-    const passwordCorrect = user == null ? false : await comparePassword(user.password, password);
+    const passwordCorrect =
+        user == null ? false : await comparePassword(user.password, password);
 
     if (!passwordCorrect) {
         return res.status(401).json(["Invalid user or password"]);
@@ -68,6 +70,8 @@ export const login = async (req, res) => {
         expiresIn: 60 * 60 * 24 * 7,
     });
 
+    console.log(token);
+
     res.cookie("token", token);
     res.send({
         name: user.firstName,
@@ -79,6 +83,8 @@ export const login = async (req, res) => {
 
 export const verify = async (req, res) => {
     const { token } = req.cookies;
+
+    console.log(token);
 
     if (!token) {
         return res.status(401).json({ error: "Unauthorized" });

@@ -11,6 +11,7 @@ export const ProtectedRoutes = () => {
         const checkLogin = async () => {
             const cookies = Cookies.get();
             if (!cookies.token) {
+                console.log("Error");
                 logout();
                 setLoading(false);
             }

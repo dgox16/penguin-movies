@@ -20,7 +20,7 @@ app.use(
 );
 app.use(
     cors({
-        origin: "https://penguin-movies-frontend.onrender.com",
+        origin: "http://localhost:5174",
         credentials: true,
     }),
 );
