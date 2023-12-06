@@ -13,6 +13,7 @@ export const useViewMovie = () => {
 
     useEffect(() => {
         if (!(loadingMovies || loadingSC)) {
+            console.log("fsfsfs");
             setMovie(movies.filter((m) => m._id === id)[0]);
             if (shoppingCart.movies.some((m) => m.movie._id === id)) {
                 setAlreadyInSC(true);

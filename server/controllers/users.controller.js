@@ -29,7 +29,6 @@ export const register = async (req, res) => {
         isAdmin: false,
         shoppingCart: newShoppingCart._id,
     });
-    console.log(newUser);
     const user = await newUser.save();
     const userForToken = {
         id: user._id,
@@ -41,7 +40,6 @@ export const register = async (req, res) => {
         expiresIn: 60 * 60 * 24 * 7,
     });
 
-    res.cookie("token", token);
     res.send({
         name: user.firstName,
         username: user.username,
