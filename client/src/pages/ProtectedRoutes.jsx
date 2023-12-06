@@ -40,7 +40,7 @@ export const ProtectedRoutes = () => {
 
     if (!isAuthenticated) {
         console.log("asxd");
-        return <Navigate to="/login" replace={true} />;
+        return <Navigate to="/login" />;
     } else {
         console.info("xsaxsaxsaxsa");
         return (
