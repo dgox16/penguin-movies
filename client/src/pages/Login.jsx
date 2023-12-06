@@ -22,6 +22,7 @@ export const Login = () => {
     } = useAuthStore();
 
     useEffect(() => {
+        console.log(isAuthenticated);
         if (isAuthenticated) {
             navigate("/");
         }

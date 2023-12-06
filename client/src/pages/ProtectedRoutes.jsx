@@ -42,6 +42,7 @@ export const ProtectedRoutes = () => {
         console.log("asxd");
         return <Navigate to="/login" replace={true} />;
     } else {
+        console.info("xsaxsaxsaxsa");
         return (
             <div>
                 <Outlet />
