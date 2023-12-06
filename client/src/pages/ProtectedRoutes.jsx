@@ -15,7 +15,7 @@ export const ProtectedRoutes = () => {
                 console.log("primer fallo");
                 logout();
                 setLoading(false);
-                navigate("/login");
+                navigate("/login", { replace: true });
             }
             try {
                 const res = await verifyTokenRequest(cookies.token);
