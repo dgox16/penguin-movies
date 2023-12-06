@@ -12,6 +12,7 @@ export const ProtectedRoutes = () => {
             if (token === "") {
                 logout();
                 setLoading(false);
+                return;
             } else {
                 try {
                     const res = await verifyTokenRequest(token);
@@ -26,6 +27,7 @@ export const ProtectedRoutes = () => {
                 } catch (_error) {
                     logout();
                     setLoading(false);
+                    return;
                 }
             }
         };
