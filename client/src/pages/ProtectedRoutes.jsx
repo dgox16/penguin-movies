@@ -41,11 +41,11 @@ export const ProtectedRoutes = () => {
     if (!isAuthenticated) {
         console.log("asxd");
         return <Navigate to="/login" replace={true} />;
+    } else {
+        return (
+            <div>
+                <Outlet />
+            </div>
+        );
     }
-
-    return (
-        <div>
-            <Outlet />
-        </div>
-    );
 };
