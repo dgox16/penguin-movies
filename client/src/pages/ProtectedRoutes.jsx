@@ -5,7 +5,8 @@ import { verifyTokenRequest } from "../services/usersAdministration";
 import Cookies from "js-cookie";
 
 export const ProtectedRoutes = () => {
-    const { isAuthenticated, logout, setLoading, setToken, setUser } = useAuthStore();
+    const { isAuthenticated, logout, loading, setLoading, setToken, setUser } =
+        useAuthStore();
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -25,6 +26,8 @@ export const ProtectedRoutes = () => {
                     setLoading(false);
                     navigate("/login");
                 }
+
+                console.log("segundo fallo");
                 setUser(res);
                 setToken(res.token);
                 setLoading(false);
@@ -38,15 +41,19 @@ export const ProtectedRoutes = () => {
         checkLogin();
     }, []);
 
-    if (!isAuthenticated) {
-        console.log("asxd");
-        return <Navigate to="/login" />;
+    if (loading) {
+        return <p>Loading</p>;
     } else {
-        console.info("xsaxsaxsaxsa");
-        return (
-            <div>
-                <Outlet />
-            </div>
-        );
+        if (!isAuthenticated) {
+            console.log("asxd");
+            return <Navigate to="/login" />;
+        } else {
+            console.info("xsaxsaxsaxsa");
+            return (
+                <div>
+                    <Outlet />
+                </div>
+            );
+        }
     }
 };
