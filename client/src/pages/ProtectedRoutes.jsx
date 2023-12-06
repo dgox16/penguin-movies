@@ -12,6 +12,7 @@ export const ProtectedRoutes = () => {
         const checkLogin = async () => {
             const cookies = Cookies.get();
             if (!cookies.token) {
+                console.log("primer fallo");
                 logout();
                 setLoading(false);
                 navigate("/login");
@@ -19,6 +20,7 @@ export const ProtectedRoutes = () => {
             try {
                 const res = await verifyTokenRequest(cookies.token);
                 if (!res) {
+                    console.log("segundo fallo");
                     logout();
                     setLoading(false);
                     navigate("/login");
