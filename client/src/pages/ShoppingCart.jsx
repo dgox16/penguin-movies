@@ -17,7 +17,7 @@ export const ShoppingCart = () => {
     const navigate = useNavigate();
 
     const buyShoppingCart = async () => {
-        const res = await buyShoppingCartRequest();
+        await buyShoppingCartRequest();
         const sc = await getShoppingCartRequest();
         setShoppingCart(sc);
         const moviesAll = await getAllMoviesRequest();
@@ -40,7 +40,7 @@ export const ShoppingCart = () => {
                     </h5>
                 </div>
                 <div className="flow-root">
-                    <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+                    <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                         {shoppingCart.movies.map((movie) => (
                             <ShoppingCartCard movie={movie} key={movie._id} />
                         ))}

@@ -5,31 +5,31 @@ import { verifyTokenRequest } from "../services/usersAdministration";
 import Cookies from "js-cookie";
 
 export const ProtectedRoutes = () => {
-    const { isAuthenticated, token, logout, setLoading, setToken, setUser } =
-        useAuthStore();
+    const { isAuthenticated, logout, setLoading, setToken, setUser } = useAuthStore();
 
     useEffect(() => {
         const checkLogin = async () => {
-            if (token === "") {
+            const cookies = Cookies.get();
+            if (!cookies.token) {
                 logout();
                 setLoading(false);
-            } else {
-                try {
-                    const res = await verifyTokenRequest(token);
-                    if (!res) {
-                        logout();
-                        setLoading(false);
-                        return;
-                    }
-                    setUser(res);
-                    setToken(res.token);
-                    setLoading(false);
-                } catch (_error) {
+            }
+            try {
+                const res = await verifyTokenRequest(cookies.token);
+                if (!res) {
                     logout();
                     setLoading(false);
+                    return;
                 }
+                setUser(res);
+                setToken(res.token);
+                setLoading(false);
+            } catch (_error) {
+                logout();
+                setLoading(false);
             }
         };
+
         checkLogin();
     }, []);
 

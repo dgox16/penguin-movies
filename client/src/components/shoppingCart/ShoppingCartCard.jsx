@@ -6,7 +6,7 @@ export const ShoppingCartCard = ({ movie }) => {
     const { shoppingCart, setShoppingCart } = useShoppingCartStore();
 
     useEffect(() => {
-        const updateShoppingCartDB = async () => {
+        const updateShoppingCartDb = async () => {
             if (shoppingCart.length === 0) {
                 return;
             }
@@ -18,7 +18,7 @@ export const ShoppingCartCard = ({ movie }) => {
             });
             await updateShoppingCartRequest(aux);
         };
-        updateShoppingCartDB();
+        updateShoppingCartDb();
     }, [shoppingCart]);
 
     const updateShoppingCart = async (movies) => {

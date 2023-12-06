@@ -13,13 +13,21 @@ import { useShoppingCartStore } from "../store/shoppingCart";
 import { LoadingScreen } from "../components/ui/LoadingScreen";
 
 export const ProtectedLoading = () => {
-    const { setMovies, setLoading: setLoadingMovies, loading: loadingMovies } = useMoviesStore();
+    const {
+        setMovies,
+        setLoading: setLoadingMovies,
+        loading: loadingMovies,
+    } = useMoviesStore();
     const {
         setPurchases,
         setLoading: setLoadingPurchases,
         loading: loadingPurchases,
     } = usePurchasesStore();
-    const { setOrders, setLoading: setLoadingOrders, loading: loadingOrders } = useOrdersStore();
+    const {
+        setOrders,
+        setLoading: setLoadingOrders,
+        loading: loadingOrders,
+    } = useOrdersStore();
     const {
         setShoppingCart,
         setLoading: setLoadingSC,
