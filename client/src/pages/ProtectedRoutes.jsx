@@ -39,6 +39,7 @@ export const ProtectedRoutes = () => {
     }, []);
 
     if (!isAuthenticated) {
+        console.log("asxd");
         return <Navigate to="/login" replace={true} />;
     }
 
