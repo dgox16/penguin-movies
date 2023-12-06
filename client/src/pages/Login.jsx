@@ -21,11 +21,11 @@ export const Login = () => {
         setErrors,
     } = useAuthStore();
 
-    // useEffect(() => {
-    //     if (isAuthenticated) {
-    //         navigate("/");
-    //     }
-    // }, [isAuthenticated]);
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate("/");
+        }
+    }, [isAuthenticated]);
 
     useEffect(() => {
         if (loginError.length > 0) {
