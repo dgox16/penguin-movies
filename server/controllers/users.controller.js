@@ -67,6 +67,7 @@ export const login = async (req, res) => {
     const token = jwt.sign(userForToken, SECRET, {
         expiresIn: 60 * 60 * 24 * 7,
     });
+    res.cookie("token", token);
 
     res.send({
         name: user.firstName,
@@ -78,7 +79,6 @@ export const login = async (req, res) => {
 
 export const verify = async (req, res) => {
     const { token } = req.cookies;
-    console.log(token);
 
     if (!token) {
         return res.status(401).json({ error: "Unauthorized" });
@@ -92,6 +92,7 @@ export const verify = async (req, res) => {
         if (!userFound) {
             return res.status(401).json({ error: "Unauthorized" });
         }
+        res.cookie("token", token);
         return res.json({
             id: userFound._id,
             username: userFound.username,
