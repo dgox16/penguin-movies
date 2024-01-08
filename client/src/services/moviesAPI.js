@@ -7,7 +7,6 @@ export const getMoviesByWordRequest = async ({ search }) => {
 
     try {
         const response = await axios(`/movies/search?word=${search}`);
-        console.log(response.data);
         return response.data;
     } catch (e) {
         throw new Error("Error searching movies");
@@ -16,7 +15,14 @@ export const getMoviesByWordRequest = async ({ search }) => {
 
 export const getAllMoviesRequest = async () => {
     const res = await axios.get("/movies");
-    return res.data;
+    const newData = res.data.map((movie) => ({
+        ...movie,
+        image: {
+            ...movie.image,
+            url: movie.image.url.replace("/upload/", "/upload/q_20,f_avif/"),
+        },
+    }));
+    return newData;
 };
 
 export const newMovieOrderRequest = async (values) => {
@@ -27,7 +33,6 @@ export const newMovieOrderRequest = async (values) => {
     for (const key in values) {
         form.append(key, values[key]);
     }
-    console.log(form);
 
     const res = await axios.post("/movies", form, {
         Headers: {

@@ -14,3 +14,8 @@ export const verifyTokenRequest = async () => {
     const res = await axios.get("/auth/verify");
     return res.data;
 };
+
+export const logoutRequest = async () => {
+    const res = await axios.get("/auth/logout");
+    return res.data;
+};

@@ -10,7 +10,7 @@ export const Register = () => {
         formState: { errors },
     } = useForm();
 
-    const { setUser, setToken, isAuthenticated, errors: registerError, setErrors } = useAuthStore();
+    const { setUser, isAuthenticated, errors: registerError, setErrors } = useAuthStore();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,7 +23,6 @@ export const Register = () => {
         try {
             const res = await handleRegister(values);
             setUser(res);
-            setToken(res.token);
             navigate("/");
         } catch (error) {
             setErrors(error.response.data);
@@ -54,7 +53,9 @@ export const Register = () => {
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Username"
                         />
-                        {errors.username && <p className="text-red-500">Username is required</p>}
+                        {errors.username && (
+                            <p className="text-red-500">Username is required</p>
+                        )}
                     </div>
                     <div className="mb-6">
                         <label
@@ -69,7 +70,9 @@ export const Register = () => {
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Password"
                         />
-                        {errors.password && <p className="text-red-500">Password is required</p>}
+                        {errors.password && (
+                            <p className="text-red-500">Password is required</p>
+                        )}
                     </div>
                     <div className="mb-6">
                         <label
@@ -84,7 +87,9 @@ export const Register = () => {
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="First Name"
                         />
-                        {errors.firstName && <p className="text-red-500">First name is required</p>}
+                        {errors.firstName && (
+                            <p className="text-red-500">First name is required</p>
+                        )}
                     </div>
                     <div className="mb-6">
                         <label
@@ -99,7 +104,9 @@ export const Register = () => {
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Last Name"
                         />
-                        {errors.lastName && <p className="text-red-500">Last name is required</p>}
+                        {errors.lastName && (
+                            <p className="text-red-500">Last name is required</p>
+                        )}
                     </div>
                     <button
                         type="submit"

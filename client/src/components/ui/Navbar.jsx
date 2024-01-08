@@ -1,19 +1,70 @@
+import React from "react";
+import {
+    Navbar,
+    NavbarBrand,
+    NavbarContent,
+    Link,
+    NavbarMenuToggle,
+    NavbarMenu,
+    NavbarMenuItem,
+} from "@nextui-org/react";
+import { NavbarIsAuth } from "./NavbarIsAuth";
 import { useAuthStore } from "../../store/auth";
-import { NavbarButtons } from "./NavbarButtons";
-import { NavbarSearch } from "./NavbarSearch";
+import { NavbarIsNotAuth } from "./NavbarIsNotAuth";
 
-export const Navbar = () => {
+export const NavbarMain = () => {
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
     const { isAuthenticated } = useAuthStore();
+    const menuItems = [
+        "Profile",
+        "Dashboard",
+        "Activity",
+        "Analytics",
+        "System",
+        "Deployments",
+        "My Settings",
+        "Team Settings",
+        "Help & Feedback",
+        "Log Out",
+    ];
 
     return (
-        <nav className="bg-white dark:bg-gray-900 w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                    Penguin-Movies
-                </span>
-                <div className="flex md:order-2">{isAuthenticated && <NavbarSearch />}</div>
-                <NavbarButtons />
-            </div>
-        </nav>
+        <Navbar maxWidth="xl" onMenuOpenChange={setIsMenuOpen}>
+            <NavbarContent>
+                {isAuthenticated && (
+                    <NavbarMenuToggle
+                        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                        className="lg:hidden"
+                    />
+                )}
+                <NavbarBrand>
+                    <p className="font-bold text-inherit">ACME</p>
+                </NavbarBrand>
+            </NavbarContent>
+
+            {isAuthenticated ? <NavbarIsAuth /> : <NavbarIsNotAuth />}
+
+            <NavbarMenu>
+                {menuItems.map((item, index) => (
+                    <NavbarMenuItem key={`${item}-${index}`}>
+                        <Link
+                            color={
+                                index === 2
+                                    ? "primary"
+                                    : index === menuItems.length - 1
+                                      ? "danger"
+                                      : "foreground"
+                            }
+                            className="w-full"
+                            href="#"
+                            size="lg"
+                        >
+                            {item}
+                        </Link>
+                    </NavbarMenuItem>
+                ))}
+            </NavbarMenu>
+        </Navbar>
     );
 };

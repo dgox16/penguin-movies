@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { handleLogin } from "../services/usersAdministration";
 import { useAuthStore } from "../store/auth";
-import Cookies from "js-cookie";
 
 export const Login = () => {
     const {
@@ -13,13 +12,7 @@ export const Login = () => {
     } = useForm();
 
     const navigate = useNavigate();
-    const {
-        setUser,
-        setToken,
-        isAuthenticated,
-        errors: loginError,
-        setErrors,
-    } = useAuthStore();
+    const { setUser, isAuthenticated, errors: loginError, setErrors } = useAuthStore();
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -40,7 +33,6 @@ export const Login = () => {
         try {
             const res = await handleLogin(values);
             setUser(res);
-            setToken(res.token);
             navigate("/");
         } catch (error) {
             setErrors(error.response.data);
