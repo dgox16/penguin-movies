@@ -70,7 +70,7 @@ export const login = async (req, res) => {
 
     const serialized = serialize("token", token, {
         httpOnly: true,
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
         sameSite: "none",
         maxAge: 60 * 40 * 24 * 7,
         path: "/",
@@ -100,8 +100,8 @@ export const logout = async (req, res) => {
         }
         const serialized = serialize("token", null, {
             httpOnly: true,
-            secure: false,
-            sameSite: "strict",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "none",
             maxAge: 0,
             path: "/",
         });
