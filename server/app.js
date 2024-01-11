@@ -18,10 +18,15 @@ app.use(
         tempFileDir: "./upload",
     }),
 );
+
+const urlFrontend =
+    process.env.NODE_ENV === "production"
+        ? "https://penguin-movies-frontend.onrender.com"
+        : "http://localhost:5173";
+
 app.use(
     cors({
-        origin: "https://penguin-movies-frontend.onrender.com",
-        // origin: "http://localhost:4173",
+        origin: urlFrontend,
         credentials: true,
     }),
 );

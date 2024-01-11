@@ -10,7 +10,7 @@ export const Purchases = ({ purchases }) => {
                     </h5>
                 </div>
                 <div className="flow-root">
-                    <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+                    <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                         {purchases.map((purchase) => (
                             <PurchaseCard purchase={purchase} key={purchase._id} />
                         ))}

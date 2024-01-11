@@ -1,32 +1,27 @@
-import { useState } from "react";
-import Select from "react-select";
-import { useNavigate } from "react-router-dom";
+import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useMoviesStore } from "../../store/movies";
+import { useNavigate } from "react-router-dom";
 
 export const NavbarSearch = () => {
-    const [selectedOptions] = useState();
     const { movies } = useMoviesStore();
     const navigate = useNavigate();
 
-    function handleSelect(data) {
-        navigate(`../movies/${data.value}`, { replace: true });
-    }
+    const selectionHandler = (id) => {
+        navigate(`/movies/${id}`, { replace: true });
+    };
+
     return (
-        <div className="mr-2 text-black">
-            <div className="dropdown-container">
-                <Select
-                    options={movies.map((movie) => {
-                        return {
-                            value: movie._id,
-                            label: movie.title,
-                        };
-                    })}
-                    placeholder="Search a Movie"
-                    value={selectedOptions}
-                    onChange={handleSelect}
-                    isSearchable={true}
-                />
-            </div>
-        </div>
+        <Autocomplete
+            size="sm"
+            label="Search a movie"
+            onSelectionChange={selectionHandler}
+            className="ax-w-xs w-[160px]"
+        >
+            {movies.map((movie) => (
+                <AutocompleteItem key={movie._id} value={movie._id}>
+                    {movie.title}
+                </AutocompleteItem>
+            ))}
+        </Autocomplete>
     );
 };

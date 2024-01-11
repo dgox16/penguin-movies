@@ -1,70 +1,47 @@
-import React from "react";
-import {
-    Navbar,
-    NavbarBrand,
-    NavbarContent,
-    Link,
-    NavbarMenuToggle,
-    NavbarMenu,
-    NavbarMenuItem,
-} from "@nextui-org/react";
+import { useState } from "react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarMenuToggle } from "@nextui-org/react";
 import { NavbarIsAuth } from "./NavbarIsAuth";
 import { useAuthStore } from "../../store/auth";
 import { NavbarIsNotAuth } from "./NavbarIsNotAuth";
+import { useNavigate } from "react-router-dom";
+import { logoutRequest } from "../../services/usersAdministration";
+import { NavbarList } from "./NavbarMenu";
 
 export const NavbarMain = () => {
-    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { isAuthenticated, user, logout } = useAuthStore();
 
-    const { isAuthenticated } = useAuthStore();
-    const menuItems = [
-        "Profile",
-        "Dashboard",
-        "Activity",
-        "Analytics",
-        "System",
-        "Deployments",
-        "My Settings",
-        "Team Settings",
-        "Help & Feedback",
-        "Log Out",
-    ];
+    const navigate = useNavigate();
+
+    const logoutToLogin = async () => {
+        const { isSessionClosed } = await logoutRequest();
+        if (isSessionClosed) {
+            logout();
+            navigate("login");
+        }
+    };
 
     return (
-        <Navbar maxWidth="xl" onMenuOpenChange={setIsMenuOpen}>
+        <Navbar maxWidth="xl" isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
             <NavbarContent>
                 {isAuthenticated && (
                     <NavbarMenuToggle
                         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                        className="lg:hidden"
+                        className="md:hidden"
                     />
                 )}
                 <NavbarBrand>
-                    <p className="font-bold text-inherit">ACME</p>
+                    <p className="font-bold text-inherit">PEDG</p>
                 </NavbarBrand>
             </NavbarContent>
 
-            {isAuthenticated ? <NavbarIsAuth /> : <NavbarIsNotAuth />}
+            {isAuthenticated ? (
+                <NavbarIsAuth user={user} logout={logoutToLogin} />
+            ) : (
+                <NavbarIsNotAuth />
+            )}
 
-            <NavbarMenu>
-                {menuItems.map((item, index) => (
-                    <NavbarMenuItem key={`${item}-${index}`}>
-                        <Link
-                            color={
-                                index === 2
-                                    ? "primary"
-                                    : index === menuItems.length - 1
-                                      ? "danger"
-                                      : "foreground"
-                            }
-                            className="w-full"
-                            href="#"
-                            size="lg"
-                        >
-                            {item}
-                        </Link>
-                    </NavbarMenuItem>
-                ))}
-            </NavbarMenu>
+            {isAuthenticated && <NavbarList user={user} logout={logoutToLogin} />}
         </Navbar>
     );
 };

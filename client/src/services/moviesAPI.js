@@ -19,7 +19,7 @@ export const getAllMoviesRequest = async () => {
         ...movie,
         image: {
             ...movie.image,
-            url: movie.image.url.replace("/upload/", "/upload/q_20,f_avif/"),
+            url: movie.image.url.replace("/upload/", "/upload/w_300,h_430,q_20,f_avif/"),
         },
     }));
     return newData;

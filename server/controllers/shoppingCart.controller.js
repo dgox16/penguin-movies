@@ -2,7 +2,6 @@ import Movie from "../models/Movie.js";
 import Purchase from "../models/Purchase.js";
 import ShoppingCart from "../models/ShoppingCart.js";
 import { ObjectId } from "mongodb";
-import moment from "moment";
 
 export const getShoppingCart = async (req, res) => {
     try {

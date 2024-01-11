@@ -31,6 +31,7 @@ export const register = async (req, res) => {
         shoppingCart: newShoppingCart._id,
     });
     const user = await newUser.save();
+
     const userForToken = {
         id: user._id,
         username: user.username,
@@ -40,6 +41,16 @@ export const register = async (req, res) => {
     const token = jwt.sign(userForToken, SECRET, {
         expiresIn: 60 * 60 * 24 * 7,
     });
+
+    const serialized = serialize("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        maxAge: 60 * 40 * 24 * 7,
+        path: "/",
+    });
+
+    res.setHeader("Set-Cookie", serialized);
 
     res.send({
         name: user.firstName,
@@ -71,7 +82,7 @@ export const login = async (req, res) => {
     const serialized = serialize("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "none",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
         maxAge: 60 * 40 * 24 * 7,
         path: "/",
     });
@@ -101,7 +112,7 @@ export const logout = async (req, res) => {
         const serialized = serialize("token", null, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "none",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
             maxAge: 0,
             path: "/",
         });

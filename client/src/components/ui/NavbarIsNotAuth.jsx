@@ -4,12 +4,12 @@ export const NavbarIsNotAuth = () => {
     return (
         <NavbarContent justify="end">
             <NavbarItem>
-                <Button as={Link} href="/register" variant="flat">
+                <Button as={Link} href="/register" color="warning" variant="flat">
                     Register
                 </Button>
             </NavbarItem>
             <NavbarItem isActive={true}>
-                <Button as={Link} color="primary" href="/login" variant="flat">
+                <Button as={Link} color="success" href="/login" variant="flat">
                     Login
                 </Button>
             </NavbarItem>
