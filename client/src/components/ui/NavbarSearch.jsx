@@ -7,7 +7,9 @@ export const NavbarSearch = () => {
     const navigate = useNavigate();
 
     const selectionHandler = (id) => {
-        navigate(`/movies/${id}`, { replace: true });
+        if (id !== null) {
+            navigate(`/movies/${id}`, { replace: true });
+        }
     };
 
     return (
