@@ -10,6 +10,12 @@ import morgan from "morgan";
 
 const app = express();
 
+app.use(
+    cors({
+        origin: "https://penguin-movies-frontend.onrender.com",
+        credentials: true,
+    }),
+);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(
@@ -24,12 +30,6 @@ const urlFrontend =
         ? "https://penguin-movies-frontend.onrender.com"
         : "http://localhost:5173";
 
-app.use(
-    cors({
-        origin: "https://penguin-movies-frontend.onrender.com",
-        credentials: true,
-    }),
-);
 app.use(cookieParser());
 
 app.use(moviesRoutes);
