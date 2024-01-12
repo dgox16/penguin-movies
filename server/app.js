@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: "https://penguin-movies-frontend.onrender.com",
+        origin: "https://localhost:5173",
         credentials: true,
     }),
 );
