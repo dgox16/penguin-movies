@@ -10,9 +10,13 @@ import morgan from "morgan";
 
 const app = express();
 
+const urlFrontend =
+    process.env.NODE_ENV === "production"
+        ? "https://penguin-movies-frontend.onrender.com"
+        : "http://localhost:5173";
 app.use(
     cors({
-        origin: "https://penguin-movies-frontend.onrender.com",
+        origin: ["https://penguin-movies-frontend.onrender.com"],
         credentials: true,
     }),
 );
@@ -24,11 +28,6 @@ app.use(
         tempFileDir: "./upload",
     }),
 );
-
-const urlFrontend =
-    process.env.NODE_ENV === "production"
-        ? "https://penguin-movies-frontend.onrender.com"
-        : "http://localhost:5173";
 
 app.use(cookieParser());
 
