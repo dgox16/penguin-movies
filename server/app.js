@@ -16,7 +16,18 @@ const urlFrontend =
         : "http://localhost:5173";
 app.use(
     cors({
-        origin: "https://penguin-movies-frontend.onrender.com",
+        origin: (origin, callback) => {
+            // Verificar si el origen coincide con el dominio permitido
+            if (origin === urlFrontend) {
+                // Permitir acceso solo para el dominio permitido
+                callback(null, true);
+            } else {
+                // Bloquear la solicitud CORS para cualquier otro origen
+                callback(new Error("Acceso no permitido para este origen"), false);
+            }
+        },
+        // methods: ["GET", "POST", "PUT", "DELETE"],
+        // allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true,
     }),
 );
