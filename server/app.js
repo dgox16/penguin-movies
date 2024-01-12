@@ -16,7 +16,7 @@ const urlFrontend =
         : "http://localhost:5173";
 app.use(
     cors({
-        origin: ["https://penguin-movies-frontend.onrender.com"],
+        origin: "https://penguin-movies-frontend.onrender.com",
         credentials: true,
     }),
 );
