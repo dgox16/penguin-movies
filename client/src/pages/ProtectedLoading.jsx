@@ -42,11 +42,13 @@ export const ProtectedLoading = () => {
         };
         const getPurchases = async () => {
             const p = await getPurchasesRequest();
+            // console.log(p);
             setPurchases(p);
             setLoadingPurchases(false);
         };
         const getOrders = async () => {
             const o = await getOrdersRequest();
+            // console.log(o);
             setOrders(o);
             setLoadingOrders(false);
         };

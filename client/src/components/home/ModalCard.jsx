@@ -45,7 +45,7 @@ export const ModalCard = ({ movie, close }) => {
                 className="w-4/5 h-[45ch] sm:w-[55ch] md:w-[65ch] border xs:h-full lg:w-[80ch] lg:h-[50ch] border-zinc-600 bg-background/60 dark:bg-black/50"
                 shadow="sm"
             >
-                <CardBody>
+                <CardBody className="p-2 sm:p-3">
                     <div className="grid grid-cols-6 lg:grid-cols-12 gap-6 md:gap-4 items-center h-full">
                         <div className="flex lg:h-full justify-center col-span-6 p-0 lg:p-4 lg:col-span-5">
                             <img

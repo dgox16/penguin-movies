@@ -29,7 +29,7 @@ const useScreenSize = () => {
 export const ModalButtons = ({ alreadyInSc, close, handleSubmit, movie }) => {
     const screenSize = useScreenSize();
 
-    const sizeButtons = screenSize.width < 640 ? "sm" : "lg";
+    const sizeButtons = screenSize.width < 359 ? "md" : "lg";
 
     return (
         <div className="mt-3 sm:mt-12">
@@ -42,7 +42,7 @@ export const ModalButtons = ({ alreadyInSc, close, handleSubmit, movie }) => {
                             color="warning"
                             isDisabled={true}
                         >
-                            Already in stock
+                            In shopping cart
                         </Button>
                     ) : (
                         <Button
@@ -51,7 +51,7 @@ export const ModalButtons = ({ alreadyInSc, close, handleSubmit, movie }) => {
                             color="primary"
                             onClick={() => handleSubmit(movie)}
                         >
-                            Add to shopping cart
+                            To shopping cart
                         </Button>
                     )
                 ) : (

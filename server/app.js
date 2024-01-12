@@ -26,7 +26,7 @@ const urlFrontend =
 
 app.use(
     cors({
-        origin: urlFrontend,
+        origin: "https://penguin-movies-frontend.onrender.com",
         credentials: true,
     }),
 );
