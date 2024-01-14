@@ -41,7 +41,7 @@ export const ShoppingCart = () => {
                 </div>
                 <div className="flow-root">
                     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                        {shoppingCart.movies.map((movie) => (
+                        {shoppingCart.map((movie) => (
                             <ShoppingCartCard movie={movie} key={movie._id} />
                         ))}
                     </ul>

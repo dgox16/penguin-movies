@@ -11,8 +11,10 @@ import { getOrdersRequest } from "../services/orderAPI";
 import { useOrdersStore } from "../store/orders";
 import { useShoppingCartStore } from "../store/shoppingCart";
 import { LoadingScreen } from "../components/ui/LoadingScreen";
+import { useAuthStore } from "../store/auth";
 
 export const ProtectedLoading = () => {
+    const { user } = useAuthStore();
     const {
         setMovies,
         setLoading: setLoadingMovies,
@@ -42,7 +44,6 @@ export const ProtectedLoading = () => {
         };
         const getPurchases = async () => {
             const p = await getPurchasesRequest();
-            // console.log(p);
             setPurchases(p);
             setLoadingPurchases(false);
         };
@@ -57,10 +58,17 @@ export const ProtectedLoading = () => {
             setShoppingCart(sc);
             setLoadingSC(false);
         };
-        getData();
-        getPurchases();
-        getOrders();
-        getShoppingCart();
+        if (user == null) {
+            getData();
+        } else {
+            if (user.isAdmin) {
+                getOrders();
+                getPurchases();
+            }
+
+            getShoppingCart();
+            getData();
+        }
     }, []);
 
     if (loadingMovies || loadingSC || loadingOrders || loadingPurchases) {

@@ -34,6 +34,9 @@ export const newOrder = async (req, res) => {
 };
 
 export const getAllOrders = async (req, res) => {
+    if (!req.user.isAdmin) {
+        return res.status(400).send({ error: "You are not an admin" });
+    }
     const orders = await Orders.find().populate("movies.movie").populate("user");
     res.json(orders);
 };

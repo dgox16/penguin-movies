@@ -9,7 +9,7 @@ import {
 
 const router = Router();
 
-router.get("/api/movies", authRequired, getMovies);
+router.get("/api/movies", getMovies);
 router.get("/api/movies/search", getMoviesByWord);
 router.get("/api/movies/:id", getMovie);
 router.post("/api/movies", saveMovie);

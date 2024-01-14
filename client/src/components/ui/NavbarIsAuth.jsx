@@ -57,11 +57,6 @@ export const NavbarIsAuth = ({ user, logout }) => {
                     </Button>
                 </NavbarItem>
             </NavbarContent>
-            <NavbarContent justify="end">
-                <NavbarItem>
-                    <NavbarSearch />
-                </NavbarItem>
-            </NavbarContent>
         </>
     );
 };

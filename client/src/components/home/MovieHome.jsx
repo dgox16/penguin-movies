@@ -1,7 +1,13 @@
 import { Card, CardFooter, CardHeader, Image } from "@nextui-org/react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
-const ListOfMovies = ({ movies, open }) => {
+const ListOfMovies = ({ movies }) => {
+    const navigate = useNavigate();
+    const onClickHandler = (movie) => {
+        navigate(`/movies/${movie._id}`, { replace: true });
+    };
+
     return (
         <>
             {movies.map((movie) => (
@@ -10,7 +16,7 @@ const ListOfMovies = ({ movies, open }) => {
                         isFooterBlurred={true}
                         className="col-span-1 aspect-w-2 aspect-h-3"
                         isPressable={true}
-                        onPress={() => open(movie)}
+                        onPress={() => onClickHandler(movie)}
                     >
                         <CardHeader className="absolute z-10 flex-col items-end">
                             <h4 className="text-white rounded-xl p-1 bg-black/80 z-10 font-bold text-xl  xs:text-base md:text-2xl justify-end">

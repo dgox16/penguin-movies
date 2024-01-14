@@ -21,12 +21,14 @@ function App() {
                 <Routes>
                     <Route element={<ProtectedRoutes />}>
                         <Route element={<ProtectedLoading />}>
-                            <Route path="/" element={<Home />} />
                             <Route path="/order/new" element={<NewOrder />} />
                             <Route path="/inventory" element={<Inventory />} />
                             <Route path="/shoppingCart" element={<ShoppingCart />} />
-                            <Route path="/movies/:id" element={<ViewMovie />} />
                         </Route>
+                    </Route>
+                    <Route element={<ProtectedLoading />}>
+                        <Route path="/movies/:id" element={<ViewMovie />} />
+                        <Route path="/" element={<Home />} />
                     </Route>
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />

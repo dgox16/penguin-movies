@@ -10,12 +10,13 @@ export const ShoppingCartCard = ({ movie }) => {
             if (shoppingCart.length === 0) {
                 return;
             }
-            const aux = shoppingCart.movies.map((m) => {
+            const aux = shoppingCart.map((m) => {
                 return {
-                    movie: m.movie._id,
+                    movie: m._id,
                     quantity: m.quantity,
                 };
             });
+            console.log(aux);
             await updateShoppingCartRequest(aux);
         };
         updateShoppingCartDb();
@@ -26,7 +27,8 @@ export const ShoppingCartCard = ({ movie }) => {
     };
 
     const deleteByShoppingCart = (id) => {
-        const newMovies = shoppingCart.movies.filter((movie) => movie.movie._id !== id);
+        const newMovies = shoppingCart.filter((movie) => movie._id !== id);
+        console.log(newMovies);
         setShoppingCart({ ...shoppingCart, movies: newMovies });
     };
 
@@ -53,17 +55,17 @@ export const ShoppingCartCard = ({ movie }) => {
                             className="text-white right-2.5 bottom-2.5 bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button"
                             onClick={handleDelete}
-                            id={movie.movie._id}
+                            id={movie._id}
                         >
                             X
                         </button>
                     </div>
                     <div className="flex-1 min-w-0">
                         <p className="font-medium text-gray-900 truncate dark:text-white">
-                            {movie.movie.title}
+                            {movie.title}
                         </p>
                         <p className=" text-gray-500 truncate dark:text-gray-400">
-                            Stock: {movie.movie.stock}
+                            Stock: {movie.stock}
                         </p>
                     </div>
                     <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
@@ -74,7 +76,7 @@ export const ShoppingCartCard = ({ movie }) => {
                             onChange={handleChangeQuantity}
                             min="1"
                             name="quantity"
-                            id={movie.movie._id}
+                            id={movie._id}
                         />
                     </div>
                 </div>

@@ -9,6 +9,6 @@ export const useShoppingCartStore = create(
             setShoppingCart: (shoppingCart) => set(() => ({ shoppingCart })),
             setLoading: (loading) => set(() => ({ loading })),
         }),
-        { name: "purchases" },
+        { name: "shoppingCart" },
     ),
 );
