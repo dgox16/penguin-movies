@@ -12,7 +12,7 @@ const app = express();
 
 const urlFrontend =
     process.env.NODE_ENV === "production"
-        ? "https://penguin-movies-frontend.onrender.com"
+        ? "https://penguin-movies.vercel.app"
         : "http://localhost:5173";
 
 app.use(
