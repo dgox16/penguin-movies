@@ -2,19 +2,23 @@ import { Button, Card, CardBody } from "@nextui-org/react";
 import { useViewMovie } from "../hooks/shoppingCart/useViewMovie.js";
 import { useShoppingCartStore } from "../store/shoppingCart";
 import { useAuthStore } from "../store/auth.js";
+import { useUpdateShoppingCart } from "../hooks/shoppingCart/useUpdateShoppingCart.js";
 
 export const ViewMovie = () => {
     const { isAuthenticated } = useAuthStore();
     const { movie, loading, alreadyInSc } = useViewMovie({ isAuthenticated });
     const { shoppingCart, setShoppingCart } = useShoppingCartStore();
+    useUpdateShoppingCart();
 
     const addToShoppingCart = (movie) => {
-        const newMovies = shoppingCart.movies.concat({ movie: movie, quantity: 1 });
-        setShoppingCart({ ...shoppingCart, movies: newMovies });
-    };
-
-    const handleSubmit = () => {
-        addToShoppingCart(movie);
+        const newMovies = shoppingCart.concat({
+            id: movie._id,
+            title: movie.title,
+            stock: movie.stock,
+            price: movie.price,
+            quantity: 1,
+        });
+        setShoppingCart(newMovies);
     };
 
     return (
@@ -41,7 +45,7 @@ export const ViewMovie = () => {
                                         <span className="text-base sm:text-xl md:text-2xl lg:text-4xl text-foreground-600 mt-2">
                                             {movie.year}
                                         </span>
-                                        <p className="mt-4 text-xl 2xl:text-2xl">
+                                        <p className="my-4 text-xl 2xl:text-2xl">
                                             Lorem, ipsum dolor sit amet consectetur
                                             adipisicing elit. Consequuntur voluptate
                                             exercitationem eos veniam voluptatum soluta,
@@ -54,7 +58,7 @@ export const ViewMovie = () => {
                                                 alreadyInSc ? (
                                                     <Button
                                                         size="lg"
-                                                        isDisabled
+                                                        isDisabled={true}
                                                         color="primary"
                                                     >
                                                         Already in shopping cart
@@ -63,18 +67,21 @@ export const ViewMovie = () => {
                                                     <Button
                                                         color="primary"
                                                         size="lg"
-                                                        onClick={handleSubmit}
+                                                        onClick={() => {
+                                                            addToShoppingCart(movie);
+                                                        }}
                                                     >
                                                         Add to shopping cart
                                                     </Button>
                                                 )
                                             ) : (
-                                                <button
-                                                    type="button"
-                                                    className="flex ml-auto text-white bg-slate-500 border-0 py-2 px-6 focus:outline-none hover:bg-slate-600 rounded"
+                                                <Button
+                                                    size="lg"
+                                                    isDisabled={true}
+                                                    color="default"
                                                 >
-                                                    Not in stock
-                                                </button>
+                                                    No stock
+                                                </Button>
                                             ))}
                                     </div>
                                 </div>
@@ -82,65 +89,6 @@ export const ViewMovie = () => {
                         </Card>
                     </div>
                 </>
-
-                /*                 <div className="container px-5 py-24 mx-auto bg-gray-800 mt-5">
-                    <div className="lg:w-3/5 mx-auto flex flex-wrap">
-                        <img
-                            alt="ecommerce"
-                            className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-                            style={{ height: "600px" }}
-                            src={movie.image.url}
-                        />
-                        <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-24">
-                            <h1 className="text-white text-3xl title-font font-medium mb-1">
-                                {movie.title}
-                            </h1>
-                            <h2 className="text-white text-2xl title-font font-medium mb-1">
-                                {movie.year}
-                            </h2>
-                            <p className="leading-relaxed">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Impedit animi, iure voluptates sapiente cupiditate quasi
-                                sed praesentium iusto nulla totam laudantium qui, ut
-                                ipsam, optio error id? Aperiam, fugit omnis. Lorem ipsum
-                                dolor, sit amet consectetur adipisicing elit. Numquam
-                                modi, dolores magnam quis iure tenetur ad, fugit
-                                recusandae in expedita id ipsam praesentium doloremque
-                                dolore voluptatem doloribus blanditiis minima dolor!
-                            </p>
-                            <div className="flex mt-3">
-                                <span className="title-font font-medium text-2xl">
-                                    ${movie.price}
-                                </span>
-                                {movie.stock > 0 ? (
-                                    // alreadyInSc ? (
-                                    //     <button
-                                    //         type="button"
-                                    //         className="flex ml-auto text-white bg-slate-500 border-0 py-2 px-6 focus:outline-none hover:bg-slate-600 rounded"
-                                    //     >
-                                    //         Already in shopping cart
-                                    //     </button>
-                                    // ) : (
-                                    <button
-                                        type="button"
-                                        className="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded"
-                                        onClick={handleSubmit}
-                                    >
-                                        Add
-                                    </button>
-                                    // )
-                                ) : (
-                                    <button
-                                        type="button"
-                                        className="flex ml-auto text-white bg-slate-500 border-0 py-2 px-6 focus:outline-none hover:bg-slate-600 rounded"
-                                    >
-                                        Not stock
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div> */
             )}
         </>
     );

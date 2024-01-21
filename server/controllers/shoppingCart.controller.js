@@ -4,75 +4,27 @@ import ShoppingCart from "../models/ShoppingCart.js";
 import { ObjectId } from "mongodb";
 
 export const getShoppingCart = async (req, res) => {
-    try {
-        const shoppingCart = await ShoppingCart.findById(req.user.shoppingCart).populate(
-            "movies.movie",
-        );
-        const shoppingCartFormatted = shoppingCart.movies.map((item) => {
-            const { _id, title, price, stock } = item.movie;
+    // try {
+    const shoppingCart = await ShoppingCart.findById(req.user.shoppingCart).populate(
+        "movies.movie",
+    );
+    console.info(shoppingCart);
+    const shoppingCartFormatted = shoppingCart.movies.map((item) => {
+        const { _id, title, price, stock } = item.movie;
 
-            return {
-                _id,
-                title,
-                price,
-                stock,
-                quantity: item.quantity,
-            };
-        });
-        console.info(shoppingCartFormatted);
-        res.json(shoppingCartFormatted);
-    } catch (_error) {
-        res.status(400).send({ error: "id used is malformed" });
-    }
+        return {
+            id: _id,
+            title,
+            price,
+            stock,
+            quantity: item.quantity,
+        };
+    });
+    res.json(shoppingCartFormatted);
+    // } catch (_error) {
+    //     res.status(400).send({ error: "id used is malformed" });
+    // }
 };
-
-[
-    {
-        movie: {
-            image: [Object],
-            _id: new ObjectId("6489f4946ad181d5f164e674"),
-            title: "Deadpool",
-            year: "2017",
-            price: 2132,
-            stock: 1,
-            __v: 0,
-        },
-        quantity: 1,
-        _id: new ObjectId("65a33de88e092676510cedce"),
-    },
-
-    {
-        movie: {
-            image: [Object],
-            _id: new ObjectId("6489f4946ad181d5f164ea74"),
-            title: "Deadpdasool",
-            year: "20s17",
-            price: 2132,
-            stock: 1,
-            __v: 0,
-        },
-        quantity: 1,
-        _id: new ObjectId("65a33de88e092676510cedce"),
-    },
-];
-
-[
-    {
-        _id: new ObjectId("6489f4946ad181d5f164e674"),
-        title: "Deadpool",
-        price: 2132,
-        stock: 1,
-        quantity: 1,
-    },
-
-    {
-        _id: new ObjectId("6489f4946ad181d5f164ea74"),
-        title: "Deadpdasool",
-        price: 2132,
-        stock: 1,
-        quantity: 1,
-    },
-];
 
 export const updateShoppingCart = async (req, res) => {
     const movies = req.body.map((m) => {

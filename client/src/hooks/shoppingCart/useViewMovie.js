@@ -15,11 +15,9 @@ export const useViewMovie = ({ isAuthenticated }) => {
         if (!(loadingMovies || loadingSc)) {
             setMovie(movies.find((m) => m._id === id));
             if (isAuthenticated) {
-                if (shoppingCart.some((m) => m._id === id)) {
-                    console.info("first");
+                if (shoppingCart.some((m) => m.id === id)) {
                     setAlreadyInSc(true);
                 } else {
-                    console.info("ft");
                     setAlreadyInSc(false);
                 }
             }
