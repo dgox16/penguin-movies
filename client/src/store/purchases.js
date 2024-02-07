@@ -8,6 +8,7 @@ export const usePurchasesStore = create(
             loading: true,
             setPurchases: (purchases) => set(() => ({ purchases })),
             setLoading: (loading) => set(() => ({ loading })),
+            resetPurchases: () => set({ purchases: [], loading: true }),
         }),
         { name: "purchases" },
     ),

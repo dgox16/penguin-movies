@@ -8,6 +8,7 @@ export const useOrdersStore = create(
             loading: true,
             setOrders: (orders) => set(() => ({ orders })),
             setLoading: (loading) => set(() => ({ loading })),
+            resetOrders: () => set({ orders: [], loading: true }),
         }),
         { name: "orders" },
     ),

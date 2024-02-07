@@ -8,6 +8,7 @@ export const useShoppingCartStore = create(
             loading: true,
             setShoppingCart: (shoppingCart) => set(() => ({ shoppingCart })),
             setLoading: (loading) => set(() => ({ loading })),
+            resetShoppingCart: () => set({ shoppingCart: [], loading: true }),
         }),
         { name: "shoppingCart" },
     ),

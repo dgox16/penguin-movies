@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseUrl =
     process.env.NODE_ENV === "production"
-        ? "https://penguin-movies-dev-gzfh.3.us-1.fl0.io/api/"
+        ? "https://api-penguin-movies.onrender.com/api"
         : "http://localhost:4000/api";
 
 const instance = axios.create({

@@ -1,12 +1,12 @@
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import express from "express";
-import moviesRoutes from "./routes/movies.routes.js";
 import fileupload from "express-fileupload";
-import userRoutes from "./routes/user.routes.js";
+import morgan from "morgan";
+import moviesRoutes from "./routes/movies.routes.js";
 import orderRoutes from "./routes/orders.routes.js";
 import shoppingCartRoutes from "./routes/shoppingCart.routes.js";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import morgan from "morgan";
+import userRoutes from "./routes/user.routes.js";
 
 const app = express();
 
@@ -27,6 +27,7 @@ app.use(
         credentials: true,
     }),
 );
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(

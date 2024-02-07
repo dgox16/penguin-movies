@@ -6,7 +6,6 @@ import { ProtectedRoutes } from "./pages/ProtectedRoutes";
 import { NewOrder } from "./pages/NewOrder";
 import { ViewMovie } from "./pages/ViewMovie";
 import { ShoppingCart } from "./pages/ShoppingCart";
-import { ProtectedLoading } from "./pages/ProtectedLoading";
 import { Inventory } from "./pages/Inventory";
 import { NavbarMain } from "./components/ui/Navbar";
 import { NextUIProvider } from "@nextui-org/react";
@@ -22,6 +21,7 @@ import {
 } from "./services/moviesAPI";
 import { getOrdersRequest } from "./services/orderAPI";
 import { useEffect } from "react";
+import { LoadingScreen } from "./components/ui/LoadingScreen";
 
 function App() {
     const navigate = useNavigate();
@@ -44,8 +44,8 @@ function App() {
     } = useOrdersStore();
     const {
         setShoppingCart,
-        setLoading: setLoadingSC,
-        loading: loadingSC,
+        setLoading: setLoadingShoppingCart,
+        loading: loadingShoppingCart,
     } = useShoppingCartStore();
 
     useEffect(() => {
@@ -61,15 +61,15 @@ function App() {
         };
         const getOrders = async () => {
             const o = await getOrdersRequest();
-            // console.log(o);
             setOrders(o);
             setLoadingOrders(false);
         };
         const getShoppingCart = async () => {
             const sc = await getShoppingCartRequest();
             setShoppingCart(sc);
-            setLoadingSC(false);
+            setLoadingShoppingCart(false);
         };
+
         if (user == null) {
             getData();
         } else {
@@ -82,6 +82,22 @@ function App() {
             getData();
         }
     }, []);
+
+    if (user == null) {
+        if (loadingMovies) {
+            return <LoadingScreen />;
+        }
+    } else {
+        if (user.isAdmin) {
+            if (loadingOrders || loadingPurchases) {
+                return <LoadingScreen />;
+            }
+        }
+
+        if (loadingMovies || loadingShoppingCart) {
+            return <LoadingScreen />;
+        }
+    }
 
     return (
         <NextUIProvider navigate={navigate}>

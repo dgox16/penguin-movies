@@ -20,9 +20,9 @@ import { NavbarSearch } from "./NavbarSearch";
 export const NavbarMain = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { isAuthenticated, user, logout } = useAuthStore();
-    const { setOrders } = useOrdersStore();
-    const { setPurchases } = usePurchasesStore();
-    const { setShoppingCart } = useShoppingCartStore();
+    const { resetOrders } = useOrdersStore();
+    const { resetPurchases } = usePurchasesStore();
+    const { resetShoppingCart } = useShoppingCartStore();
 
     const navigate = useNavigate();
 
@@ -30,9 +30,9 @@ export const NavbarMain = () => {
         const { isSessionClosed } = await logoutRequest();
         if (isSessionClosed) {
             logout();
-            setOrders([]);
-            setPurchases([]);
-            setShoppingCart([]);
+            resetOrders();
+            resetPurchases();
+            resetShoppingCart();
             navigate("/");
         }
     };

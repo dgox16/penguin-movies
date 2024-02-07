@@ -1,15 +1,3 @@
-import { useNavigate } from "react-router-dom";
-import { ShoppingCartCard } from "../components/shoppingCart/ShoppingCartCard";
-import { useShoppingCartStore } from "../store/shoppingCart";
-import {
-    buyShoppingCartRequest,
-    getAllMoviesRequest,
-    getPurchasesRequest,
-    getShoppingCartRequest,
-} from "../services/moviesAPI";
-import { useMoviesStore } from "../store/movies";
-import { usePurchasesStore } from "../store/purchases";
-import { useUpdateShoppingCart } from "../hooks/shoppingCart/useUpdateShoppingCart";
 import {
     Button,
     Card,
@@ -18,6 +6,18 @@ import {
     CardHeader,
     Divider,
 } from "@nextui-org/react";
+import { useNavigate } from "react-router-dom";
+import { ShoppingCartCard } from "../components/shoppingCart/ShoppingCartCard";
+import { useUpdateShoppingCart } from "../hooks/shoppingCart/useUpdateShoppingCart";
+import {
+    buyShoppingCartRequest,
+    getAllMoviesRequest,
+    getPurchasesRequest,
+    getShoppingCartRequest,
+} from "../services/moviesAPI";
+import { useMoviesStore } from "../store/movies";
+import { usePurchasesStore } from "../store/purchases";
+import { useShoppingCartStore } from "../store/shoppingCart";
 
 export const ShoppingCart = () => {
     const { shoppingCart, setShoppingCart } = useShoppingCartStore();
