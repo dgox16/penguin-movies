@@ -38,7 +38,7 @@ export const NavbarMain = () => {
     };
 
     return (
-        <Navbar maxWidth="xl" isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+        <Navbar maxWidth="xl" onMenuOpenChange={setIsMenuOpen}>
             <NavbarContent>
                 <NavbarMenuToggle
                     aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -61,7 +61,7 @@ export const NavbarMain = () => {
                 </NavbarItem>
             </NavbarContent>
 
-            {isAuthenticated && <NavbarList user={user} logout={logoutToLogin} />}
+            <NavbarList user={user} logout={logoutToLogin} />
         </Navbar>
     );
 };
