@@ -12,7 +12,7 @@ export const useViewMovie = ({ isAuthenticated }) => {
     const { movies, loading: loadingMovies } = useMoviesStore();
 
     useEffect(() => {
-        if (!(loadingMovies || loadingSc)) {
+        if (!loadingMovies) {
             setMovie(movies.find((m) => m._id === id));
             if (isAuthenticated) {
                 if (shoppingCart.some((m) => m.id === id)) {
