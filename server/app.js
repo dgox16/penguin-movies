@@ -18,6 +18,7 @@ const urlFrontend =
 app.use(
     cors({
         origin: (origin, callback) => {
+            console.info(origin);
             if (origin === urlFrontend) {
                 callback(null, true);
             } else {
