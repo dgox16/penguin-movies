@@ -23,7 +23,7 @@ export const useViewMovie = ({ isAuthenticated }) => {
             }
             setLoading(false);
         }
-    }, [id, shoppingCart, loadingMovies, loadingSc, movie]);
+    }, [id, shoppingCart, loadingMovies, loadingSc]);
     // }, [id, movie]);
 
     return {
