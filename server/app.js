@@ -18,8 +18,9 @@ const urlFrontend =
 app.use(
     cors({
         origin: (origin, callback) => {
+            console.info("El origen es:");
             console.info(origin);
-            if (origin === urlFrontend) {
+            if (origin == urlFrontend) {
                 callback(null, true);
             } else {
                 callback(new Error("Acceso no permitido para este origen"), false);
