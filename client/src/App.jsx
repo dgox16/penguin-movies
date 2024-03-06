@@ -10,78 +10,14 @@ import { Inventory } from "./pages/Inventory";
 import { NavbarMain } from "./components/ui/Navbar";
 import { NextUIProvider } from "@nextui-org/react";
 import { useAuthStore } from "./store/auth";
-import { useMoviesStore } from "./store/movies";
-import { usePurchasesStore } from "./store/purchases";
-import { useOrdersStore } from "./store/orders";
-import { useShoppingCartStore } from "./store/shoppingCart";
-import {
-    getAllMoviesRequest,
-    getPurchasesRequest,
-    getShoppingCartRequest,
-} from "./services/moviesAPI";
-import { getOrdersRequest } from "./services/orderAPI";
-import { useEffect } from "react";
 import { LoadingScreen } from "./components/ui/LoadingScreen";
+import { useAllDataFetch } from "./hooks/shoppingCart/useAllDataFetch";
 
 function App() {
     const navigate = useNavigate();
-
     const { user } = useAuthStore();
-    const {
-        setMovies,
-        setLoading: setLoadingMovies,
-        loading: loadingMovies,
-    } = useMoviesStore();
-    const {
-        setPurchases,
-        setLoading: setLoadingPurchases,
-        loading: loadingPurchases,
-    } = usePurchasesStore();
-    const {
-        setOrders,
-        setLoading: setLoadingOrders,
-        loading: loadingOrders,
-    } = useOrdersStore();
-    const {
-        setShoppingCart,
-        setLoading: setLoadingShoppingCart,
-        loading: loadingShoppingCart,
-    } = useShoppingCartStore();
-
-    useEffect(() => {
-        const getData = async () => {
-            const movies = await getAllMoviesRequest();
-            setMovies(movies);
-            setLoadingMovies(false);
-        };
-        const getPurchases = async () => {
-            const p = await getPurchasesRequest();
-            setPurchases(p);
-            setLoadingPurchases(false);
-        };
-        const getOrders = async () => {
-            const o = await getOrdersRequest();
-            setOrders(o);
-            setLoadingOrders(false);
-        };
-        const getShoppingCart = async () => {
-            const sc = await getShoppingCartRequest();
-            setShoppingCart(sc);
-            setLoadingShoppingCart(false);
-        };
-
-        if (user == null) {
-            getData();
-        } else {
-            if (user.isAdmin) {
-                getOrders();
-                getPurchases();
-            }
-            console.info("Solicitud Grande");
-            getShoppingCart();
-            getData();
-        }
-    }, []);
+    const { loadingMovies, loadingOrders, loadingPurchases, loadingShoppingCart } =
+        useAllDataFetch();
 
     if (user == null) {
         if (loadingMovies) {
