@@ -42,7 +42,7 @@ export const ShoppingCart = () => {
     };
 
     return (
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-3 mx-6 ">
             <Card className="w-[122ch] p-4">
                 <CardHeader className="flex gap-3 mb-3">
                     <div className="flex flex-col">
