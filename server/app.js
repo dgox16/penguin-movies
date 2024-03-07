@@ -7,6 +7,7 @@ import moviesRoutes from "./routes/movies.routes.js";
 import orderRoutes from "./routes/orders.routes.js";
 import shoppingCartRoutes from "./routes/shoppingCart.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import purchasesRoutes from "./routes/purchases.routes.js";
 
 const app = express();
 
@@ -45,5 +46,6 @@ app.use(moviesRoutes);
 app.use(userRoutes);
 app.use(shoppingCartRoutes);
 app.use(orderRoutes);
+app.use(purchasesRoutes);
 
 export default app;

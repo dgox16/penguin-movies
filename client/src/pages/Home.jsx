@@ -1,8 +1,15 @@
+import { useEffect } from "react";
 import { MoviesHome } from "../components/home/MovieHome";
 import { useMoviesStore } from "../store/movies";
+import { usePurchasesStore } from "../store/purchases";
 
 export const Home = () => {
     const { movies } = useMoviesStore();
+    const { purchases } = usePurchasesStore();
+
+    useEffect(() => {
+        console.info(purchases);
+    }, []);
 
     return (
         <>

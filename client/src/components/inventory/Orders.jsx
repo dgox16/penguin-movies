@@ -10,7 +10,10 @@ export const Orders = ({ orders }) => {
                     </h5>
                 </div>
                 <div className="flow-root">
-                    <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+                    <ul
+                        role="list"
+                        className="divide-y divide-gray-200 dark:divide-gray-700"
+                    >
                         {orders.map((order) => (
                             <OrderCard order={order} key={order._id} />
                         ))}

@@ -4,11 +4,9 @@ import ShoppingCart from "../models/ShoppingCart.js";
 import { ObjectId } from "mongodb";
 
 export const getShoppingCart = async (req, res) => {
-    // try {
     const shoppingCart = await ShoppingCart.findById(req.user.shoppingCart).populate(
         "movies.movie",
     );
-    console.info(shoppingCart);
     const shoppingCartFormatted = shoppingCart.movies.map((item) => {
         const { _id, title, price, stock } = item.movie;
 
@@ -21,9 +19,6 @@ export const getShoppingCart = async (req, res) => {
         };
     });
     res.json(shoppingCartFormatted);
-    // } catch (_error) {
-    //     res.status(400).send({ error: "id used is malformed" });
-    // }
 };
 
 export const updateShoppingCart = async (req, res) => {
@@ -70,10 +65,5 @@ export const buyShoppingCart = async (req, res) => {
         { new: true },
     );
 
-    res.json(purchase);
-};
-
-export const getAllPurchases = async (req, res) => {
-    const purchase = await Purchase.find().populate("movies.movie").populate("user");
     res.json(purchase);
 };

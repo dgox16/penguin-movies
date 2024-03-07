@@ -12,7 +12,7 @@ export const Purchases = ({ purchases }) => {
                 <div className="flow-root">
                     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                         {purchases.map((purchase) => (
-                            <PurchaseCard purchase={purchase} key={purchase._id} />
+                            <PurchaseCard purchase={purchase} key={purchase.id} />
                         ))}
                     </ul>
                 </div>
