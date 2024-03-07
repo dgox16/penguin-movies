@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+    Link,
     Navbar,
     NavbarBrand,
     NavbarContent,
@@ -45,7 +46,9 @@ export const NavbarMain = () => {
                     className="md:hidden"
                 />
                 <NavbarBrand>
-                    <p className="font-bold text-inherit">Penguin Movies</p>
+                    <Link className="font-bold text-inherit" href="/">
+                        Penguin Movies
+                    </Link>
                 </NavbarBrand>
             </NavbarContent>
 

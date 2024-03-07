@@ -5,16 +5,10 @@ import { handleLogin } from "../services/usersAdministration";
 import { useAuthStore } from "../store/auth";
 import { Button, Card, CardBody, Input, Spacer } from "@nextui-org/react";
 import { EyeFilledIcon, EyeSlashFilledIcon } from "../assets/icons/EyeFilledIcon";
-import { useMoviesStore } from "../store/movies";
 import { usePurchasesStore } from "../store/purchases";
 import { useOrdersStore } from "../store/orders";
 import { useShoppingCartStore } from "../store/shoppingCart";
-import {
-    getMovies,
-    getOrders,
-    getPurchases,
-    getShoppingCart,
-} from "../functions/getData";
+import { getOrders, getPurchases, getShoppingCart } from "../functions/getData";
 
 export const Login = () => {
     const {
