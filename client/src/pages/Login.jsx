@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { handleLogin } from "../services/usersAdministration";
 import { useAuthStore } from "../store/auth";
-import { Button, Card, CardBody, Input, Spacer } from "@nextui-org/react";
+import { Button, Card, CardBody, CardHeader, Input, Spacer } from "@nextui-org/react";
 import { EyeFilledIcon, EyeSlashFilledIcon } from "../assets/icons/EyeFilledIcon";
 import { usePurchasesStore } from "../store/purchases";
 import { useOrdersStore } from "../store/orders";
@@ -26,8 +26,6 @@ export const Login = () => {
     const { setUser, isAuthenticated, errors: loginError, setErrors } = useAuthStore();
 
     const [isVisible, setIsVisible] = useState(false);
-
-    const toggleVisibility = () => setIsVisible(!isVisible);
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -69,9 +67,15 @@ export const Login = () => {
         <>
             <div className="flex justify-center h-screen -mt-16 pt-16 items-center">
                 <Card className="mx-6">
+                    <CardHeader className="flex items-center justify-center mb-5 mt-2">
+                        <h1 className="text-4xl font-bold">LOGIN</h1>
+                    </CardHeader>
                     <CardBody>
                         {loginError.map((err) => (
-                            <div className="bg-red-500 text-white rounded-md" key={err}>
+                            <div
+                                className="bg-red-500 mb-3 font-bold text-center text-white rounded-md p-4"
+                                key={err}
+                            >
                                 {err}
                             </div>
                         ))}
@@ -102,7 +106,7 @@ export const Login = () => {
                                     <button
                                         className="focus:outline-none"
                                         type="button"
-                                        onClick={toggleVisibility}
+                                        onClick={() => setIsVisible(!isVisible)}
                                     >
                                         {isVisible ? (
                                             <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
