@@ -1,5 +1,4 @@
 import { Button, Link, NavbarContent, NavbarItem } from "@nextui-org/react";
-import { NavbarSearch } from "./NavbarSearch";
 
 export const NavbarIsAuth = ({ user, logout }) => {
     return (

@@ -23,7 +23,6 @@ export const Login = () => {
         formState: { errors },
     } = useForm();
 
-    const { setMovies, setLoading: setLoadingMovies } = useMoviesStore();
     const { setPurchases, setLoading: setLoadingPurchases } = usePurchasesStore();
     const { setOrders, setLoading: setLoadingOrders } = useOrdersStore();
     const { setShoppingCart, setLoading: setLoadingShoppingCart } =
@@ -74,7 +73,7 @@ export const Login = () => {
 
     return (
         <>
-            <div className="flex justify-center h-screen -mt-16 items-center">
+            <div className="flex justify-center h-screen -mt-16 pt-16 items-center">
                 <Card className="mx-6">
                     <CardBody>
                         {loginError.map((err) => (

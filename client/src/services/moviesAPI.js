@@ -1,18 +1,5 @@
 import axios from "./axios";
 
-export const getMoviesByWordRequest = async ({ search }) => {
-    if (search === "") {
-        return null;
-    }
-
-    try {
-        const response = await axios(`/movies/search?word=${search}`);
-        return response.data;
-    } catch (e) {
-        throw new Error("Error searching movies");
-    }
-};
-
 export const getAllMoviesRequest = async () => {
     const res = await axios.get("/movies");
     const newData = res.data.map((movie) => ({

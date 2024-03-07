@@ -12,7 +12,7 @@ export const ShoppingCartCard = ({ movie }) => {
     const validateQuantity = (event) => {
         const value = event.target.value;
 
-        if (value === "" || isNaN(value)) {
+        if (value === "" || Number.isNaN(value)) {
             setLocalQuantity("");
             setErrors("There is empty data");
             return;
@@ -22,7 +22,7 @@ export const ShoppingCartCard = ({ movie }) => {
         const stock = movie.stock;
 
         if (parsedValue < 1 || parsedValue > stock) {
-            setErrors("There is empty data");
+            setErrors("Is not a valid value");
             return;
         }
 

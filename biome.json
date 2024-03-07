@@ -5,6 +5,9 @@
             "all": true,
             "nursery": {
                 "all": false
+            },
+            "complexity": {
+                "noForEach": "off"
             }
         }
     },

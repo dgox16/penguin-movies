@@ -12,9 +12,6 @@ export const useUpdateShoppingCart = () => {
             return;
         }
         const updateShoppingCartDb = async () => {
-            if (shoppingCart.length === 0) {
-                return;
-            }
             const aux = shoppingCart.map((m) => {
                 return {
                     movie: m.id,
@@ -23,7 +20,6 @@ export const useUpdateShoppingCart = () => {
             });
             await updateShoppingCartRequest(aux);
         };
-        console.info("updateBaseDatosAAAA");
         updateShoppingCartDb();
     }, [shoppingCart]);
 };
