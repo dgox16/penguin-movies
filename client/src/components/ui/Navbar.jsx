@@ -45,7 +45,7 @@ export const NavbarMain = () => {
                     className="md:hidden"
                 />
                 <NavbarBrand>
-                    <p className="font-bold text-inherit">PEDG</p>
+                    <p className="font-bold text-inherit">Penguin Movies</p>
                 </NavbarBrand>
             </NavbarContent>
 

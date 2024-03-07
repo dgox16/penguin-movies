@@ -61,7 +61,6 @@ export const Login = () => {
                 getPurchases(setPurchases, setLoadingPurchases);
             }
             getShoppingCart(setShoppingCart, setLoadingShoppingCart);
-            getMovies(setMovies, setLoadingMovies);
             navigate("/");
         } catch (error) {
             console.info(error.response.data);
