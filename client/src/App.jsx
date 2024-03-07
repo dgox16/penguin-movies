@@ -19,15 +19,13 @@ function App() {
     const { loadingMovies, loadingOrders, loadingPurchases, loadingShoppingCart } =
         useAllDataFetch();
 
-    if (user == null) {
-        if (loadingMovies) {
+    if (user === null && loadingMovies) {
+        return <LoadingScreen />;
+    }
+
+    if (user !== null) {
+        if (user.isAdmin && (loadingOrders || loadingPurchases)) {
             return <LoadingScreen />;
-        }
-    } else {
-        if (user.isAdmin) {
-            if (loadingOrders || loadingPurchases) {
-                return <LoadingScreen />;
-            }
         }
 
         if (loadingMovies || loadingShoppingCart) {

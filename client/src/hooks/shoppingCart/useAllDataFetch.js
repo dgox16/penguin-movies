@@ -42,7 +42,6 @@ export const useAllDataFetch = () => {
                 getOrders(setOrders, setLoadingOrders);
                 getPurchases(setPurchases, setLoadingPurchases);
             }
-            console.info("Solicitud Grande");
             getShoppingCart(setShoppingCart, setLoadingShoppingCart);
             getMovies(setMovies, setLoadingMovies);
         }

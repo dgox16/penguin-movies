@@ -37,6 +37,27 @@ export const getAllOrders = async (req, res) => {
     if (!req.user.isAdmin) {
         return res.status(400).send({ error: "You are not an admin" });
     }
+
     const orders = await Orders.find().populate("movies.movie").populate("user");
-    res.json(orders);
+
+    const ordersFormatted = orders.map((item) => {
+        const { _id, user, movies, createdAt } = item;
+        const moviesFormatted = movies.map((item) => {
+            const { _id, title } = item.movie;
+            return {
+                id: _id,
+                title,
+                quantity: item.quantity,
+            };
+        });
+
+        return {
+            id: _id,
+            user: user.username,
+            movies: moviesFormatted,
+            createdAt: createdAt,
+        };
+    });
+
+    res.json(ordersFormatted);
 };

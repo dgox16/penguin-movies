@@ -15,7 +15,7 @@ export const Orders = ({ orders }) => {
                         className="divide-y divide-gray-200 dark:divide-gray-700"
                     >
                         {orders.map((order) => (
-                            <OrderCard order={order} key={order._id} />
+                            <OrderCard order={order} key={order.id} />
                         ))}
                     </ul>
                 </div>
