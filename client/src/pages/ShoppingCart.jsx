@@ -18,11 +18,13 @@ import {
 import { useMoviesStore } from "../store/movies";
 import { usePurchasesStore } from "../store/purchases";
 import { useShoppingCartStore } from "../store/shoppingCart";
+import { useScreenSize } from "../hooks/useSizeWindow";
 
 export const ShoppingCart = () => {
     const { shoppingCart, setShoppingCart } = useShoppingCartStore();
     const { setMovies } = useMoviesStore();
     const { setPurchases } = usePurchasesStore();
+    const { width } = useScreenSize();
     const navigate = useNavigate();
     useUpdateShoppingCart();
 
@@ -41,9 +43,11 @@ export const ShoppingCart = () => {
         navigate("/");
     };
 
+    const buttonSize = width < 640 ? "md" : "lg";
+
     return (
         <div className="flex justify-center mt-3 mx-6 ">
-            <Card className="w-[122ch] p-4">
+            <Card className="w-[122ch] p-2 sm:p-4">
                 <CardHeader className="flex gap-3 mb-3">
                     <div className="flex flex-col">
                         <p className="text-xl">Shopping Cart</p>
@@ -64,7 +68,7 @@ export const ShoppingCart = () => {
                     <Button
                         type="button"
                         color="success"
-                        size="lg"
+                        size={buttonSize}
                         onClick={handleSubmit}
                     >
                         Buy
