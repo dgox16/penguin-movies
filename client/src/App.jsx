@@ -39,7 +39,7 @@ function App() {
                 <NavbarMain />
                 <Routes>
                     <Route element={<ProtectedRoutes />}>
-                        <Route path="/order/new" element={<NewOrder />} />
+                        <Route path="/orders/new" element={<NewOrder />} />
                         <Route path="/inventory" element={<Inventory />} />
                         <Route path="/shoppingCart" element={<ShoppingCart />} />
                     </Route>

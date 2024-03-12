@@ -39,13 +39,12 @@ export const updateShoppingCart = async (req, res) => {
 
 export const buyShoppingCart = async (req, res) => {
     const shoppingCart = await ShoppingCart.findById(req.user.shoppingCart);
+
     shoppingCart.movies.forEach(async (movie) => {
-        const modifiedPost = await Movie.findByIdAndUpdate(
+        await Movie.findByIdAndUpdate(
             movie.movie,
             { $inc: { stock: -movie.quantity } },
-            {
-                new: true,
-            },
+            { new: true },
         );
     });
 
@@ -57,13 +56,13 @@ export const buyShoppingCart = async (req, res) => {
     });
 
     const newPurchase = new Purchase({ user: req.user.id, movies });
-    const purchase = await newPurchase.save();
+    await newPurchase.save();
 
-    const shoppingCartModified = await ShoppingCart.findByIdAndUpdate(
+    await ShoppingCart.findByIdAndUpdate(
         req.user.shoppingCart,
         { movies: [] },
         { new: true },
     );
 
-    res.json(purchase);
+    res.json({ status: "The shopping cart has been purchased." });
 };

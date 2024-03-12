@@ -1,17 +1,22 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { MoviesInStock } from "../components/inventory/MoviesInStock";
-import { Orders } from "../components/inventory/Orders";
-import { Purchases } from "../components/inventory/Purchases";
 import { useAuthStore } from "../store/auth";
 import { useMoviesStore } from "../store/movies";
-import { usePurchasesStore } from "../store/purchases";
-import { useOrdersStore } from "../store/orders";
+import {
+    Card,
+    CardBody,
+    CardHeader,
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow,
+    getKeyValue,
+} from "@nextui-org/react";
 
 export const Inventory = () => {
     const { movies } = useMoviesStore();
-    const { purchases } = usePurchasesStore();
-    const { orders } = useOrdersStore();
     const { user } = useAuthStore();
     const navigate = useNavigate();
 
@@ -21,19 +26,54 @@ export const Inventory = () => {
         }
     }, [user]);
 
+    const columns = [
+        {
+            key: "title",
+            label: "TITLE",
+        },
+        {
+            key: "year",
+            label: "YEAR",
+        },
+        {
+            key: "price",
+            label: "PRICE ($)",
+        },
+        {
+            key: "stock",
+            label: "STOCK",
+        },
+    ];
+
     return (
-        <>
-            <div className="grid place-items-center">
-                <div className="w-3/4 p-16 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-12">
-                    <MoviesInStock movies={movies} />
-                    <br />
-                    <div className="grid grid-cols-2 gap-4">
-                        <Orders orders={orders} />
-                        <Purchases purchases={purchases} />
+        <div className="flex justify-center mt-3 mx-6 ">
+            <Card className="w-[122ch] p-2 sm:p-4">
+                <CardHeader className="flex gap-3 mb-3">
+                    <div className="flex flex-col">
+                        <p className="text-2xl sm:text-3xl font-bold">Inventory</p>
                     </div>
-                </div>
-            </div>
-            <br />
-        </>
+                </CardHeader>
+                <CardBody>
+                    <Table aria-label="Example table with dynamic content">
+                        <TableHeader columns={columns}>
+                            {(column) => (
+                                <TableColumn key={column.key}>{column.label}</TableColumn>
+                            )}
+                        </TableHeader>
+                        <TableBody items={movies}>
+                            {(item) => (
+                                <TableRow key={item._id}>
+                                    {(columnKey) => (
+                                        <TableCell>
+                                            {getKeyValue(item, columnKey)}
+                                        </TableCell>
+                                    )}
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </CardBody>
+            </Card>
+        </div>
     );
 };

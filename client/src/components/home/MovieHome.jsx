@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const ListOfMovies = ({ movies }) => {
     const navigate = useNavigate();
     const onClickHandler = (movie) => {
-        navigate(`/movies/${movie._id}`, { replace: true });
+        navigate(`/movies/${movie._id}`);
     };
 
     return (

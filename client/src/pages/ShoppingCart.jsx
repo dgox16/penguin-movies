@@ -55,7 +55,7 @@ export const ShoppingCart = () => {
             <Card className="w-[122ch] p-2 sm:p-4">
                 <CardHeader className="flex gap-3 mb-3">
                     <div className="flex flex-col">
-                        <p className="text-xl">Shopping Cart</p>
+                        <p className="text-2xl sm:text-3xl font-bold">Shopping Cart</p>
                     </div>
                 </CardHeader>
                 <CardBody>
