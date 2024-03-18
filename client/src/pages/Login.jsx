@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { handleLogin } from "../services/usersAdministration";
 import { useAuthStore } from "../store/auth";
 import { Button, Card, CardBody, CardHeader, Input, Spacer } from "@nextui-org/react";
 import { EyeFilledIcon, EyeSlashFilledIcon } from "../assets/icons/EyeFilledIcon";
@@ -9,6 +8,7 @@ import { usePurchasesStore } from "../store/purchases";
 import { useOrdersStore } from "../store/orders";
 import { useShoppingCartStore } from "../store/shoppingCart";
 import { getOrders, getPurchases, getShoppingCart } from "../functions/getData";
+import { loginRequest } from "../services/authRequest";
 
 export const Login = () => {
     const {
@@ -44,7 +44,7 @@ export const Login = () => {
 
     const signin = async (values) => {
         try {
-            const res = await handleLogin(values);
+            const res = await loginRequest(values);
             setUser(res);
 
             if (res.isAdmin) {

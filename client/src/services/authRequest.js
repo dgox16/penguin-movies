@@ -1,11 +1,11 @@
 import axios from "./axios";
 
-export const handleRegister = async (credentials) => {
+export const registerRequest = async (credentials) => {
     const res = await axios.post("/user/register", credentials);
     return res.data;
 };
 
-export const handleLogin = async (credentials) => {
+export const loginRequest = async (credentials) => {
     const res = await axios.post("/user/login", credentials);
     return res.data;
 };

@@ -1,9 +1,7 @@
-import {
-    getAllMoviesRequest,
-    getPurchasesRequest,
-    getShoppingCartRequest,
-} from "../services/moviesAPI";
-import { getOrdersRequest } from "../services/orderAPI";
+import { getAllMoviesRequest } from "../services/moviesRequest";
+import { getOrdersRequest } from "../services/ordersRequest";
+import { getPurchasesRequest } from "../services/purchasesRequest";
+import { getShoppingCartRequest } from "../services/shoppingCartRequest";
 
 export const getMovies = async (setMovies, setLoadingMovies) => {
     const movies = await getAllMoviesRequest();

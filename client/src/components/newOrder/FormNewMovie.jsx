@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useMoviesStore } from "../../store/movies";
-import { newMovieOrderRequest } from "../../services/moviesAPI";
+import { newMovieOrderRequest } from "../../services/moviesRequest";
 
 export const FormNewMovie = () => {
     const { setMovies, movies } = useMoviesStore();

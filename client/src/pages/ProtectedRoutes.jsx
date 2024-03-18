@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuthStore } from "../store/auth";
 import { useEffect } from "react";
-import { verifyTokenRequest } from "../services/usersAdministration";
+import { verifyTokenRequest } from "../services/authRequest";
 
 export const ProtectedRoutes = () => {
     const { isAuthenticated, logout, setLoading, setUser } = useAuthStore();
@@ -12,15 +12,13 @@ export const ProtectedRoutes = () => {
                 const res = await verifyTokenRequest();
                 if (!res) {
                     logout();
-                    setLoading(false);
-                    return;
                 }
                 setUser(res);
-                setLoading(false);
-            } catch (_error) {
+            } catch (error) {
+                console.error("Error:", error);
                 logout();
+            } finally {
                 setLoading(false);
-                return;
             }
         };
         checkLogin();

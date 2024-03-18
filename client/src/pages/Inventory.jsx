@@ -54,7 +54,7 @@ export const Inventory = () => {
                     </div>
                 </CardHeader>
                 <CardBody>
-                    <Table aria-label="Example table with dynamic content">
+                    <Table aria-label="Table with inventory">
                         <TableHeader columns={columns}>
                             {(column) => (
                                 <TableColumn key={column.key}>{column.label}</TableColumn>

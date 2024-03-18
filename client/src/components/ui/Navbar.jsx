@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+    Button,
     Link,
     Navbar,
     NavbarBrand,
@@ -9,14 +10,16 @@ import {
 } from "@nextui-org/react";
 import { NavbarIsAuth } from "./NavbarIsAuth";
 import { useAuthStore } from "../../store/auth";
+import { TbUser, TbLogout } from "react-icons/tb";
 import { NavbarIsNotAuth } from "./NavbarIsNotAuth";
 import { useNavigate } from "react-router-dom";
-import { logoutRequest } from "../../services/usersAdministration";
+import { logoutRequest } from "../../services/authRequest";
 import { NavbarList } from "./NavbarMenu";
 import { useOrdersStore } from "../../store/orders";
 import { usePurchasesStore } from "../../store/purchases";
 import { useShoppingCartStore } from "../../store/shoppingCart";
 import { NavbarSearch } from "./NavbarSearch";
+import { IconContext } from "react-icons";
 
 export const NavbarMain = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,13 +55,41 @@ export const NavbarMain = () => {
                 </NavbarBrand>
             </NavbarContent>
 
-            {isAuthenticated ? (
-                <NavbarIsAuth user={user} logout={logoutToLogin} />
-            ) : (
-                <NavbarIsNotAuth />
-            )}
+            {isAuthenticated && <NavbarIsAuth user={user} logout={logoutToLogin} />}
 
             <NavbarContent justify="end">
+                {isAuthenticated ? (
+                    <NavbarItem>
+                        <Button
+                            as={Link}
+                            href="/"
+                            variant="flat"
+                            size="lg"
+                            color="danger"
+                            isIconOnly={true}
+                            onClick={logout}
+                        >
+                            <IconContext.Provider value={{ size: "24" }}>
+                                <TbLogout />
+                            </IconContext.Provider>
+                        </Button>
+                    </NavbarItem>
+                ) : (
+                    <NavbarItem>
+                        <Button
+                            as={Link}
+                            href="/login"
+                            variant="flat"
+                            size="lg"
+                            color="success"
+                            isIconOnly={true}
+                        >
+                            <IconContext.Provider value={{ size: "24" }}>
+                                <TbUser />
+                            </IconContext.Provider>
+                        </Button>
+                    </NavbarItem>
+                )}
                 <NavbarItem>
                     <NavbarSearch />
                 </NavbarItem>

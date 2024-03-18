@@ -28,23 +28,3 @@ export const newMovieOrderRequest = async (values) => {
     });
     return res.data;
 };
-
-export const getShoppingCartRequest = async () => {
-    const res = await axios("/shoppingCart");
-    return res.data;
-};
-
-export const updateShoppingCartRequest = async (movies) => {
-    const res = await axios.put("/shoppingCart", movies);
-    return res.data;
-};
-
-export const buyShoppingCartRequest = async () => {
-    const res = await axios.get("/shoppingCart/buy");
-    return res.data;
-};
-
-export const getPurchasesRequest = async () => {
-    const res = await axios.get("/purchases");
-    return res.data;
-};

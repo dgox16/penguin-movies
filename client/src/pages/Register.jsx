@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { handleRegister } from "../services/usersAdministration";
 import { useAuthStore } from "../store/auth";
 import { Button, Card, CardBody, CardHeader, Input, Spacer } from "@nextui-org/react";
 import { getOrders, getPurchases, getShoppingCart } from "../functions/getData";
@@ -9,6 +8,7 @@ import { usePurchasesStore } from "../store/purchases";
 import { useOrdersStore } from "../store/orders";
 import { useShoppingCartStore } from "../store/shoppingCart";
 import { EyeFilledIcon, EyeSlashFilledIcon } from "../assets/icons/EyeFilledIcon";
+import { registerRequest } from "../services/authRequest";
 
 export const Register = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -43,7 +43,7 @@ export const Register = () => {
 
     const signup = async (values) => {
         try {
-            const res = await handleRegister(values);
+            const res = await registerRequest(values);
             setUser(res);
 
             if (res.isAdmin) {

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { getOrdersRequest, newOrderRequest } from "../../services/orderAPI";
-import { getAllMoviesRequest } from "../../services/moviesAPI";
+import { getOrdersRequest, newOrderRequest } from "../../services/ordersRequest";
 import { useMoviesStore } from "../../store/movies";
 import { useOrdersStore } from "../../store/orders";
+import { getAllMoviesRequest } from "../../services/moviesRequest";
 
 export const ButtonSubmit = ({ moviesInOrder }) => {
     const navigate = useNavigate();

@@ -14,16 +14,11 @@ import { MdMovieEdit } from "react-icons/md";
 import { TbMovie } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 
-export const NavbarIsAuth = ({ user, logout }) => {
+export const NavbarIsAuth = ({ user }) => {
     const navigate = useNavigate();
     return (
         <>
             <NavbarContent className="hidden md:flex gap-4" justify="center">
-                <NavbarItem isActive={true}>
-                    <Link className="text-small lg:text-base" href="/">
-                        View movies
-                    </Link>
-                </NavbarItem>
                 <NavbarItem>
                     <Link
                         color="foreground"
@@ -74,6 +69,21 @@ export const NavbarIsAuth = ({ user, logout }) => {
                                 </DropdownItem>
                                 <DropdownItem
                                     onClick={() => {
+                                        navigate("/purchases");
+                                    }}
+                                    startContent={
+                                        <IconContext.Provider value={{ size: "20" }}>
+                                            <MdMovieEdit />
+                                        </IconContext.Provider>
+                                    }
+                                    textValue="Purchases"
+                                >
+                                    <span className="text-base lg:text-base">
+                                        Purchases
+                                    </span>
+                                </DropdownItem>
+                                <DropdownItem
+                                    onClick={() => {
                                         navigate("/orders/new");
                                     }}
                                     startContent={
@@ -91,18 +101,6 @@ export const NavbarIsAuth = ({ user, logout }) => {
                         </Dropdown>
                     </>
                 )}
-                <NavbarItem>
-                    <Button
-                        as={Link}
-                        color="danger"
-                        href="/"
-                        size=""
-                        variant="flat"
-                        onClick={logout}
-                    >
-                        Logout
-                    </Button>
-                </NavbarItem>
             </NavbarContent>
         </>
     );

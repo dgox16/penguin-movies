@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useShoppingCartStore } from "../../store/shoppingCart";
-import { updateShoppingCartRequest } from "../../services/moviesAPI";
+import { updateShoppingCartRequest } from "../../services/shoppingCartRequest";
 
 export const useUpdateShoppingCart = () => {
     const { shoppingCart } = useShoppingCartStore();

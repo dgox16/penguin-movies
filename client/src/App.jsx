@@ -12,6 +12,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { useAuthStore } from "./store/auth";
 import { LoadingScreen } from "./components/ui/LoadingScreen";
 import { useAllDataFetch } from "./hooks/shoppingCart/useAllDataFetch";
+import { Purchases } from "./pages/Purchases";
 
 function App() {
     const navigate = useNavigate();
@@ -42,6 +43,7 @@ function App() {
                         <Route path="/orders/new" element={<NewOrder />} />
                         <Route path="/inventory" element={<Inventory />} />
                         <Route path="/shoppingCart" element={<ShoppingCart />} />
+                        <Route path="/purchases" element={<Purchases />} />
                     </Route>
                     <Route path="/movies/:id" element={<ViewMovie />} />
                     <Route path="/" element={<Home />} />

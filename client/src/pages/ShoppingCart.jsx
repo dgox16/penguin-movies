@@ -10,11 +10,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import { ShoppingCartCard } from "../components/shoppingCart/ShoppingCartCard";
 import { useUpdateShoppingCart } from "../hooks/shoppingCart/useUpdateShoppingCart";
-import { buyShoppingCartRequest, getPurchasesRequest } from "../services/moviesAPI";
 import { useMoviesStore } from "../store/movies";
 import { usePurchasesStore } from "../store/purchases";
 import { useShoppingCartStore } from "../store/shoppingCart";
 import { useScreenSize } from "../hooks/useSizeWindow";
+import { buyShoppingCartRequest } from "../services/shoppingCartRequest";
+import { getPurchasesRequest } from "../services/purchasesRequest";
 
 export const ShoppingCart = () => {
     const { shoppingCart, setShoppingCart } = useShoppingCartStore();
