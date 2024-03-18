@@ -112,7 +112,7 @@ export const NavbarMain = () => {
                 )}
                 <NavbarItem>
                     <Button
-                        onPress={onOpen}
+                        onClick={onOpen}
                         isIconOnly={true}
                         size={elementsWidth.buttonSize}
                         variant="flat"
