@@ -53,7 +53,7 @@ export const Inventory = () => {
                         <p className="text-2xl sm:text-3xl font-bold">Inventory</p>
                     </div>
                 </CardHeader>
-                <CardBody>
+                <CardBody className="p-0">
                     <Table aria-label="Table with inventory">
                         <TableHeader columns={columns}>
                             {(column) => (

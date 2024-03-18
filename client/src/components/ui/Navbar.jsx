@@ -147,7 +147,7 @@ export const NavbarMain = () => {
                 </NavbarItem>
             </NavbarContent>
 
-            <NavbarList user={user} logout={logoutToLogin} />
+            {isAuthenticated && <NavbarList user={user} />}
         </Navbar>
     );
 };
