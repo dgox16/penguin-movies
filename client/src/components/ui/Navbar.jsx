@@ -7,11 +7,16 @@ import {
     NavbarContent,
     NavbarItem,
     NavbarMenuToggle,
+    Modal,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    useDisclosure,
 } from "@nextui-org/react";
 import { NavbarIsAuth } from "./NavbarIsAuth";
 import { useAuthStore } from "../../store/auth";
 import { TbUser, TbLogout, TbSearch } from "react-icons/tb";
-import { NavbarIsNotAuth } from "./NavbarIsNotAuth";
 import { useNavigate } from "react-router-dom";
 import { logoutRequest } from "../../services/authRequest";
 import { NavbarList } from "./NavbarMenu";
@@ -20,14 +25,7 @@ import { usePurchasesStore } from "../../store/purchases";
 import { useShoppingCartStore } from "../../store/shoppingCart";
 import { NavbarSearch } from "./NavbarSearch";
 import { IconContext } from "react-icons";
-import {
-    Modal,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    useDisclosure,
-} from "@nextui-org/react";
+import { useScreenSize } from "../../hooks/useSizeWindow";
 
 export const NavbarMain = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,6 +33,7 @@ export const NavbarMain = () => {
     const { resetOrders } = useOrdersStore();
     const { resetPurchases } = usePurchasesStore();
     const { resetShoppingCart } = useShoppingCartStore();
+    const { width } = useScreenSize();
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -51,12 +50,19 @@ export const NavbarMain = () => {
         }
     };
 
+    const elementsWidth =
+        width < 640
+            ? { buttonSize: "md", iconSize: "20" }
+            : { buttonSize: "lg", iconSize: "24" };
+
+    const showMenuToggle = isAuthenticated ? "sm:hidden" : "hidden";
+
     return (
         <Navbar maxWidth="xl" onMenuOpenChange={setIsMenuOpen}>
             <NavbarContent>
                 <NavbarMenuToggle
                     aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                    className="md:hidden"
+                    className={showMenuToggle}
                 />
                 <NavbarBrand>
                     <Link className="font-bold text-inherit" href="/">
@@ -74,12 +80,14 @@ export const NavbarMain = () => {
                             as={Link}
                             href="/"
                             variant="flat"
-                            size="lg"
+                            size={elementsWidth.buttonSize}
                             color="danger"
                             isIconOnly={true}
-                            onClick={logout}
+                            onPress={logout}
                         >
-                            <IconContext.Provider value={{ size: "24" }}>
+                            <IconContext.Provider
+                                value={{ size: elementsWidth.iconSize }}
+                            >
                                 <TbLogout />
                             </IconContext.Provider>
                         </Button>
@@ -90,19 +98,26 @@ export const NavbarMain = () => {
                             as={Link}
                             href="/login"
                             variant="flat"
-                            size="lg"
+                            size={elementsWidth.buttonSize}
                             color="success"
                             isIconOnly={true}
                         >
-                            <IconContext.Provider value={{ size: "24" }}>
+                            <IconContext.Provider
+                                value={{ size: elementsWidth.iconSize }}
+                            >
                                 <TbUser />
                             </IconContext.Provider>
                         </Button>
                     </NavbarItem>
                 )}
                 <NavbarItem>
-                    <Button onPress={onOpen} isIconOnly={true} size="lg">
-                        <IconContext.Provider value={{ size: "24" }}>
+                    <Button
+                        onPress={onOpen}
+                        isIconOnly={true}
+                        size={elementsWidth.buttonSize}
+                        variant="flat"
+                    >
+                        <IconContext.Provider value={{ size: elementsWidth.iconSize }}>
                             <TbSearch />
                         </IconContext.Provider>
                     </Button>
@@ -129,7 +144,6 @@ export const NavbarMain = () => {
                             )}
                         </ModalContent>
                     </Modal>
-                    {/* <NavbarSearch /> */}
                 </NavbarItem>
             </NavbarContent>
 

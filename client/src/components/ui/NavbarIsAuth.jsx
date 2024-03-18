@@ -18,11 +18,11 @@ export const NavbarIsAuth = ({ user }) => {
     const navigate = useNavigate();
     return (
         <>
-            <NavbarContent className="hidden md:flex gap-4" justify="center">
+            <NavbarContent className="hidden sm:flex gap-4" justify="center">
                 <NavbarItem>
                     <Link
                         color="foreground"
-                        className="text-small lg:text-base"
+                        className="text-small md:text-base"
                         href="/shoppingCart"
                         aria-current="page"
                     >
@@ -36,7 +36,7 @@ export const NavbarIsAuth = ({ user }) => {
                                 <DropdownTrigger>
                                     <Button
                                         disableRipple={true}
-                                        className="p-0 bg-transparent data-[hover=true]:bg-transparent text-small lg:text-base "
+                                        className="p-0 bg-transparent data-[hover=true]:bg-transparent text-small md:text-base "
                                         radius="sm"
                                         variant="light"
                                         endContent={<HiChevronDown />}
