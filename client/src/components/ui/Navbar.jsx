@@ -10,7 +10,7 @@ import {
 } from "@nextui-org/react";
 import { NavbarIsAuth } from "./NavbarIsAuth";
 import { useAuthStore } from "../../store/auth";
-import { TbUser, TbLogout } from "react-icons/tb";
+import { TbUser, TbLogout, TbSearch } from "react-icons/tb";
 import { NavbarIsNotAuth } from "./NavbarIsNotAuth";
 import { useNavigate } from "react-router-dom";
 import { logoutRequest } from "../../services/authRequest";
@@ -20,6 +20,14 @@ import { usePurchasesStore } from "../../store/purchases";
 import { useShoppingCartStore } from "../../store/shoppingCart";
 import { NavbarSearch } from "./NavbarSearch";
 import { IconContext } from "react-icons";
+import {
+    Modal,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    useDisclosure,
+} from "@nextui-org/react";
 
 export const NavbarMain = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,6 +35,8 @@ export const NavbarMain = () => {
     const { resetOrders } = useOrdersStore();
     const { resetPurchases } = usePurchasesStore();
     const { resetShoppingCart } = useShoppingCartStore();
+
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const navigate = useNavigate();
 
@@ -91,7 +101,35 @@ export const NavbarMain = () => {
                     </NavbarItem>
                 )}
                 <NavbarItem>
-                    <NavbarSearch />
+                    <Button onPress={onOpen} isIconOnly={true} size="lg">
+                        <IconContext.Provider value={{ size: "24" }}>
+                            <TbSearch />
+                        </IconContext.Provider>
+                    </Button>
+                    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                        <ModalContent>
+                            {(onClose) => (
+                                <>
+                                    <ModalHeader className="flex flex-col gap-1">
+                                        Movie Finder
+                                    </ModalHeader>
+                                    <ModalBody>
+                                        <NavbarSearch onClose={onClose} />
+                                    </ModalBody>
+                                    <ModalFooter>
+                                        <Button
+                                            color="danger"
+                                            variant="light"
+                                            onPress={onClose}
+                                        >
+                                            Close
+                                        </Button>
+                                    </ModalFooter>
+                                </>
+                            )}
+                        </ModalContent>
+                    </Modal>
+                    {/* <NavbarSearch /> */}
                 </NavbarItem>
             </NavbarContent>
 
