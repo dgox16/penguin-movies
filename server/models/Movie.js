@@ -11,6 +11,15 @@ const moviesSchema = new Schema({
         required: true,
         trim: true,
     },
+    description: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    rating: {
+        type: Number,
+        required: true,
+    },
     image: {
         url: String,
         public_id: String,

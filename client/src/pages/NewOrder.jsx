@@ -21,6 +21,7 @@ export const NewOrder = () => {
 
     useEffect(() => {
         if (!user.isAdmin) {
+            console.info("dsacas");
             navigate("/");
         }
     }, [user]);

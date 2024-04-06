@@ -51,12 +51,9 @@ export const ViewMovie = () => {
                                             {movie.year}
                                         </span>
                                         <p className="my-4 text-sm  sm:text-base lg:text-2xl">
-                                            Lorem, ipsum dolor sit amet consectetur
-                                            adipisicing elit. Consequuntur voluptate
-                                            exercitationem eos veniam voluptatum soluta,
-                                            fugit a eveniet quo sunt consectetur culpa,
-                                            nesciunt sint delectus earum nisi dicta, totam
-                                            animi.
+                                            {movie.description
+                                                ? movie.description
+                                                : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur voluptate exercitationem eos veniam voluptatum soluta, fugit a eveniet quo sunt consectetur culpa, nesciunt sint delectus earum nisi dicta, totamanimi."}
                                         </p>
                                         {isAuthenticated &&
                                             (movie.stock > 0 ? (
