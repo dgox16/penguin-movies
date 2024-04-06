@@ -1,4 +1,5 @@
 import { MoviesHome } from "../components/home/MovieHome";
+import { Footer } from "../components/ui/Footer";
 import { useMoviesStore } from "../store/movies";
 
 export const Home = () => {
@@ -11,6 +12,7 @@ export const Home = () => {
                     <MoviesHome movies={movies} />
                 </div>
             </section>
+            <Footer />
         </>
     );
 };

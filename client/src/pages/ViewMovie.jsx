@@ -43,8 +43,8 @@ export const ViewMovie = () => {
                                             src={movie.image.url}
                                         />
                                     </div>
-                                    <div className="flex lg:flex-none text-center md:text-left items-center md:items-start flex-col col-span-12 md:col-span-6 p-0 lg:pr-2">
-                                        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">
+                                    <div className="mt-3 md:mt-0 flex lg:flex-none text-center md:text-left items-center md:items-start flex-col col-span-12 md:col-span-6 p-0 lg:pr-2">
+                                        <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">
                                             {movie.title}
                                         </h1>
                                         <span className="text-xl md:text-2xl lg:text-4xl text-foreground-600 mt-2">

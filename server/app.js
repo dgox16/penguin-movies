@@ -14,7 +14,7 @@ const app = express();
 const urlFrontend =
     process.env.NODE_ENV === "production"
         ? "https://penguin-movies.vercel.app"
-        : "http://localhost:5173";
+        : "http://localhost:5174";
 
 app.use(
     cors({

@@ -7,12 +7,12 @@ import { NewOrder } from "./pages/NewOrder";
 import { ViewMovie } from "./pages/ViewMovie";
 import { ShoppingCart } from "./pages/ShoppingCart";
 import { Inventory } from "./pages/Inventory";
-import { NavbarMain } from "./components/ui/Navbar";
 import { NextUIProvider } from "@nextui-org/react";
 import { useAuthStore } from "./store/auth";
 import { LoadingScreen } from "./components/ui/LoadingScreen";
 import { useAllDataFetch } from "./hooks/shoppingCart/useAllDataFetch";
 import { Purchases } from "./pages/Purchases";
+import { NavbarMain } from "./components/ui/Navbar/NavbarMain";
 
 function App() {
     const navigate = useNavigate();
@@ -36,8 +36,10 @@ function App() {
 
     return (
         <NextUIProvider navigate={navigate}>
-            <main className="dark text-foreground bg-background">
+            <header>
                 <NavbarMain />
+            </header>
+            <main className="dark text-foreground bg-background">
                 <Routes>
                     <Route element={<ProtectedRoutes />}>
                         <Route path="/orders/new" element={<NewOrder />} />
