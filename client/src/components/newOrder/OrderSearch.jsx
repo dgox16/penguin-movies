@@ -5,7 +5,7 @@ export const OrderSearch = ({ moviesInSelect, updateMoviesSelect }) => {
         updateMoviesSelect(id);
     };
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-5">
             <Autocomplete
                 className="w-96"
                 size="sm"
