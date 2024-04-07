@@ -71,7 +71,7 @@ export const Register = () => {
 
     return (
         <>
-            <div className="flex justify-center h-screen -mt-0 sm:-mt-16 pt-16 items-center">
+            <div className="flex justify-center h-auto sm:h-screen mt-5 sm:-mt-16 pt-0 sm:pt-16 items-center">
                 <Card className="mx-6">
                     <CardHeader className="flex items-center justify-center mb-5 mt-2">
                         <h1 className="text-4xl md:text-5xl font-black">REGISTER</h1>

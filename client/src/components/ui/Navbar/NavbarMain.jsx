@@ -88,7 +88,7 @@ export const NavbarMain = () => {
                         <Button
                             as={Link}
                             href="/login"
-                            variant="flat"
+                            variant="light"
                             size={elementsWidth.buttonSize}
                             color="success"
                             isIconOnly={true}
