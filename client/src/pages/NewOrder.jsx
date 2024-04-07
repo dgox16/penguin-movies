@@ -44,7 +44,6 @@ export const NewOrder = () => {
                         deleteMoviesSelect={deleteMoviesSelect}
                         moviesInOrder={moviesInOrder}
                     />
-                    <ButtonSubmit moviesInOrder={moviesInOrder} />
                     <SectionNewMovie />
                 </CardBody>
             </Card>
