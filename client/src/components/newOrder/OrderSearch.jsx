@@ -15,7 +15,7 @@ export const OrderSearch = ({ moviesInSelect, updateMoviesSelect }) => {
                 }}
             >
                 {moviesInSelect.map((movie) => (
-                    <AutocompleteItem key={movie._id} value={movie._id}>
+                    <AutocompleteItem key={movie.id} value={movie.id}>
                         {movie.title}
                     </AutocompleteItem>
                 ))}

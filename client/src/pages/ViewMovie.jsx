@@ -15,7 +15,7 @@ export const ViewMovie = () => {
 
     const addToShoppingCart = (movie) => {
         const newMovies = shoppingCart.concat({
-            id: movie._id,
+            id: movie.id,
             title: movie.title,
             stock: movie.stock,
             price: movie.price,

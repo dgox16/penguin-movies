@@ -5,7 +5,11 @@ import Movie from "../models/Movie.js";
 export const getMovies = async (_req, res) => {
     try {
         const movies = await Movie.find();
-        res.json(movies);
+        const formattedMovies = movies.map((movie) => {
+            const { _id, __v, ...rest } = movie.toObject();
+            return { id: _id, ...rest };
+        });
+        res.json(formattedMovies);
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ message: error.message });

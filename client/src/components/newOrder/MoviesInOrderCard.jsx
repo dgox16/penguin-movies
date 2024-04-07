@@ -43,7 +43,7 @@ export const MoviesInOrderCard = ({ movie, deleteMoviesSelect, updateQuantity })
                         size={size}
                         aria-label="Like"
                         onClick={handleDelete}
-                        id={movie._id}
+                        id={movie.id}
                     >
                         X
                     </Button>
@@ -64,7 +64,7 @@ export const MoviesInOrderCard = ({ movie, deleteMoviesSelect, updateQuantity })
                         size={size}
                         isInvalid={errors ? true : false}
                         errorMessage={errors}
-                        id={movie._id}
+                        id={movie.id}
                         type="number"
                         value={localQuantity}
                         label="Quantity"

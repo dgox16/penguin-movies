@@ -13,7 +13,7 @@ export const useViewMovie = ({ isAuthenticated }) => {
 
     useEffect(() => {
         if (!loadingMovies) {
-            setMovie(movies.find((m) => m._id === id));
+            setMovie(movies.find((m) => m.id === id));
             if (isAuthenticated) {
                 setAlreadyInSc(shoppingCart.some((m) => m.id === id));
             }

@@ -14,11 +14,12 @@ export const MoviesInOrder = ({ moviesInOrder, deleteMoviesSelect, updateQuantit
     const updateMoviesStock = async (movies) => {
         const order = movies.map((movie) => {
             return {
-                movie: movie._id,
+                movie: movie.id,
                 quantity: movie.quantity,
             };
         });
         const res = await newOrderRequest(order);
+        console.info(res);
         const moviesAll = await getAllMoviesRequest();
         const ordersAll = await getOrdersRequest();
         setMovies(moviesAll);
@@ -27,7 +28,7 @@ export const MoviesInOrder = ({ moviesInOrder, deleteMoviesSelect, updateQuantit
 
     const handleSubmit = () => {
         updateMoviesStock(moviesInOrder);
-        navigate("/inventory");
+        // navigate("/inventory");
     };
     return (
         <>
@@ -35,7 +36,7 @@ export const MoviesInOrder = ({ moviesInOrder, deleteMoviesSelect, updateQuantit
                 <>
                     <Divider />
                     {moviesInOrder.map((movie) => (
-                        <div key={movie._id}>
+                        <div key={movie.id}>
                             <MoviesInOrderCard
                                 movie={movie}
                                 deleteMoviesSelect={deleteMoviesSelect}

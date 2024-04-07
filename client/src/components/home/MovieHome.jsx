@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 const ListOfMovies = ({ movies }) => {
     const navigate = useNavigate();
     const onClickHandler = (movie) => {
-        navigate(`/movies/${movie._id}`);
+        navigate(`/movies/${movie.id}`);
     };
 
     return (
         <>
             {movies.map((movie) => (
-                <motion.div whileHover={{ scale: 1.05 }} key={movie._id}>
+                <motion.div whileHover={{ scale: 1.05 }} key={movie.id}>
                     <Card
                         isFooterBlurred={true}
                         className="col-span-1 aspect-w-2 aspect-h-3"
