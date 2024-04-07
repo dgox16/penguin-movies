@@ -62,7 +62,7 @@ export const Inventory = () => {
                         </TableHeader>
                         <TableBody items={movies}>
                             {(item) => (
-                                <TableRow key={item._id}>
+                                <TableRow key={item.id}>
                                     {(columnKey) => (
                                         <TableCell>
                                             {getKeyValue(item, columnKey)}

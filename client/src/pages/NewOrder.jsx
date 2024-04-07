@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useNewOrder } from "../hooks/orders/useNewOrder.js";
 import { MoviesInOrder } from "../components/newOrder/MoviesInOrder";
 import { OrderSearch } from "../components/newOrder/OrderSearch";
-import { ButtonSubmit } from "../components/newOrder/ButtonSubmit";
 import { SectionNewMovie } from "../components/newOrder/SectionNewMovie";
 import { useAuthStore } from "../store/auth";
-import { Button, Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
+import { Card, CardBody, CardHeader } from "@nextui-org/react";
 
 export const NewOrder = () => {
     const { user } = useAuthStore();
