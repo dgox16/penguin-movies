@@ -11,7 +11,7 @@ export const SectionNewMovie = () => {
                 <Button
                     variant="light"
                     size="lg"
-                    className="italic font-semibold w-52 text-xl"
+                    className="italic font-semibold w-full md:w-52 text-base sm:text-lg md:text-xl"
                     color={addNewMovie ? "danger" : "success"}
                     onClick={() => setAddNewMovie(!addNewMovie)}
                 >

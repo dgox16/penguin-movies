@@ -67,8 +67,8 @@ export const Login = () => {
         <>
             <div className="flex justify-center h-screen -mt-16 pt-16 items-center">
                 <Card className="mx-6">
-                    <CardHeader className="flex items-center justify-center mb-5 mt-2">
-                        <h1 className="text-4xl font-bold">LOGIN</h1>
+                    <CardHeader className="flex items-center justify-center mt-2">
+                        <h1 className="text-4xl font-black">LOGIN</h1>
                     </CardHeader>
                     <CardBody>
                         {loginError.map((err) => (
@@ -87,7 +87,8 @@ export const Login = () => {
                                 type="text"
                                 variant="bordered"
                                 size="lg"
-                                label="Username"
+                                className="font-semibold"
+                                label="USERNAME"
                                 labelPlacement={"outside"}
                                 placeholder="Enter your username"
                                 isInvalid={errors.username ? true : false}
@@ -99,7 +100,8 @@ export const Login = () => {
                                     required: "This is required",
                                 })}
                                 size="lg"
-                                label="Password"
+                                label="PASSWORD"
+                                className="font-semibold"
                                 variant="bordered"
                                 placeholder="Enter your password"
                                 endContent={
@@ -122,7 +124,7 @@ export const Login = () => {
                             />
                             <Spacer y={8} />
                             <Button type="submit" className="w-full" color="success">
-                                Login
+                                LOGIN
                             </Button>
                         </form>
                     </CardBody>

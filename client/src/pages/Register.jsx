@@ -66,7 +66,7 @@ export const Register = () => {
             <div className="flex justify-center h-screen -mt-16 pt-16 items-center">
                 <Card className="mx-6">
                     <CardHeader className="flex items-center justify-center mb-5 mt-2">
-                        <h1 className="text-4xl font-bold">REGISTER</h1>
+                        <h1 className="text-4xl font-black">REGISTER</h1>
                     </CardHeader>
                     <CardBody>
                         {registerError.map((err) => (
@@ -85,7 +85,8 @@ export const Register = () => {
                                 type="text"
                                 variant="bordered"
                                 size="lg"
-                                label="Create a new user"
+                                label="CREATE A NEW USER"
+                                className="font-semibold"
                                 labelPlacement={"outside"}
                                 placeholder="Enter your username"
                                 isInvalid={errors.username ? true : false}
@@ -97,8 +98,9 @@ export const Register = () => {
                                     required: "This is required",
                                 })}
                                 size="lg"
-                                label="Create a new password"
+                                label="CREATE A NEW PASSWORD"
                                 variant="bordered"
+                                className="font-semibold"
                                 placeholder="Enter your password"
                                 endContent={
                                     <button
@@ -126,7 +128,8 @@ export const Register = () => {
                                 type="text"
                                 variant="bordered"
                                 size="lg"
-                                label="¿What is your first name?"
+                                className="font-semibold"
+                                label="WHAT IS YOUR FIRST NAME?"
                                 labelPlacement={"outside"}
                                 placeholder="Enter your first name"
                                 isInvalid={errors.firstName ? true : false}
@@ -140,7 +143,8 @@ export const Register = () => {
                                 type="text"
                                 variant="bordered"
                                 size="lg"
-                                label="¿What is your last name?"
+                                className="font-semibold"
+                                label="WHAT IS YOUR LAST NAME?"
                                 labelPlacement={"outside"}
                                 placeholder="Enter your last name"
                                 isInvalid={errors.lastName ? true : false}
@@ -148,7 +152,7 @@ export const Register = () => {
                             />
                             <Spacer y={8} />
                             <Button type="submit" className="w-full" color="warning">
-                                Register
+                                REGISTER
                             </Button>
                         </form>
                     </CardBody>
