@@ -1,29 +1,24 @@
 import { useState } from "react";
 import { FormNewMovie } from "./FormNewMovie";
 
+import { Button } from "@nextui-org/react";
 export const SectionNewMovie = () => {
-    const [bNewMovie, setBNewMovie] = useState(false);
+    const [addNewMovie, setAddNewMovie] = useState(false);
 
     return (
-        <div className="mt-6">
-            {bNewMovie ? (
-                <button
-                    type="button"
-                    className="mb-9 text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-stale-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-stale-600 dark:hover:bg-stale-700 dark:focus:ring-stale-800"
-                    onClick={() => setBNewMovie(!bNewMovie)}
+        <>
+            <div className="flex flex-col justify-center items-center mt-6">
+                <Button
+                    variant="light"
+                    size="lg"
+                    className="italic font-semibold w-52 text-xl"
+                    color={addNewMovie ? "danger" : "success"}
+                    onClick={() => setAddNewMovie(!addNewMovie)}
                 >
-                    Cancel
-                </button>
-            ) : (
-                <button
-                    type="button"
-                    className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                    onClick={() => setBNewMovie(!bNewMovie)}
-                >
-                    Add another movie
-                </button>
-            )}
-            {bNewMovie && <FormNewMovie />}
-        </div>
+                    {addNewMovie ? "Cancel" : "Add a new movie..."}
+                </Button>
+            </div>
+            {addNewMovie && <FormNewMovie />}
+        </>
     );
 };

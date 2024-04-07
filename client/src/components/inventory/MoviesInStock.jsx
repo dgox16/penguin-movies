@@ -29,7 +29,7 @@ export const MoviesInStock = ({ movies }) => {
                             {movies.map((movie) => (
                                 <tr
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                    key={movie._id}
+                                    key={movie.id}
                                 >
                                     <th
                                         scope="row"

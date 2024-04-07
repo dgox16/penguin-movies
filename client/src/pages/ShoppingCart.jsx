@@ -27,7 +27,7 @@ export const ShoppingCart = () => {
 
     const updateStock = (moviesToUpdated, shoppingCartCurrent) => {
         shoppingCartCurrent.forEach((item) => {
-            const movieAux = moviesToUpdated.find((m) => m._id === item.id);
+            const movieAux = moviesToUpdated.find((m) => m.id === item.id);
             if (movieAux) {
                 movieAux.stock -= item.quantity;
             }
