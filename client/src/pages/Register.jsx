@@ -77,7 +77,7 @@ export const Register = () => {
                         <h1 className="text-4xl md:text-5xl font-black">REGISTER</h1>
                     </CardHeader>
                     <CardBody>
-                        <div className="px-3 py-6 md:px-8 md:py-12">
+                        <div className="px-2 py-6 md:px-8 md:py-12">
                             {registerError.map((err) => (
                                 <div
                                     className="bg-red-500 mb-3 font-bold text-center text-white rounded-md p-4"

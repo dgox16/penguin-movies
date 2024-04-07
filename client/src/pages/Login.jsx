@@ -73,13 +73,13 @@ export const Login = () => {
 
     return (
         <>
-            <div className="flex justify-center h-screen -mt-16 pt-16 items-center">
+            <div className="flex justify-center h-screen -mt-8 sm:-mt-16 pt-16 items-center">
                 <Card className="mx-6">
                     <CardHeader className="flex items-center justify-center mt-2">
-                        <h1 className="text-5xl font-black">LOGIN</h1>
+                        <h1 className="text-4xl md:text-5xl font-black">LOGIN</h1>
                     </CardHeader>
                     <CardBody>
-                        <div className="px-3 py-6 md:px-8 md:py-12">
+                        <div className="px-2 py-6 md:px-8 md:py-12">
                             {loginError.map((err) => (
                                 <div
                                     className="bg-red-500 mb-3 font-bold text-center text-white rounded-md p-4"
