@@ -1,22 +1,25 @@
-import Select from "react-select";
+import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 
 export const OrderSearch = ({ moviesInSelect, updateMoviesSelect }) => {
+    const selectionHandler = (id) => {
+        updateMoviesSelect(id);
+    };
     return (
-        <div className="mr-2 text-black">
-            <div className="dropdown-container">
-                <Select
-                    options={moviesInSelect.map((movie) => {
-                        return {
-                            value: movie._id,
-                            label: movie.title,
-                        };
-                    })}
-                    placeholder="Search a Movie"
-                    value={""}
-                    onChange={updateMoviesSelect}
-                    isSearchable={true}
-                />
-            </div>
+        <div className="flex justify-center">
+            <Autocomplete
+                className="w-96"
+                size="sm"
+                label="Search a movie"
+                onSelectionChange={(e) => {
+                    selectionHandler(e);
+                }}
+            >
+                {moviesInSelect.map((movie) => (
+                    <AutocompleteItem key={movie._id} value={movie._id}>
+                        {movie.title}
+                    </AutocompleteItem>
+                ))}
+            </Autocomplete>
         </div>
     );
 };

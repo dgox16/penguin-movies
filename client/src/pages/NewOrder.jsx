@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useNewOrder } from "../hooks/orders/useNewOrder.js";
-import { ListMoviesInOrder } from "../components/newOrder/ListMoviesInOrder";
+import { MoviesInOrder } from "../components/newOrder/MoviesInOrder";
 import { OrderSearch } from "../components/newOrder/OrderSearch";
 import { ButtonSubmit } from "../components/newOrder/ButtonSubmit";
 import { SectionNewMovie } from "../components/newOrder/SectionNewMovie";
 import { useAuthStore } from "../store/auth";
+import { Button, Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 
 export const NewOrder = () => {
     const { user } = useAuthStore();
@@ -21,35 +22,32 @@ export const NewOrder = () => {
 
     useEffect(() => {
         if (!user.isAdmin) {
-            console.info("dsacas");
             navigate("/");
         }
     }, [user]);
 
     return (
-        <>
-            <div className="grid place-items-center">
-                <div className="w-3/4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-12">
-                    <div className="flex items-center justify-between mb-4">
-                        <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
-                            New order
-                        </h5>
-                        <OrderSearch
-                            moviesInSelect={moviesInSelect}
-                            updateMoviesSelect={updateMoviesSelect}
-                        />
+        <div className="flex justify-center mt-3 mx-6">
+            <Card className="w-[122ch] p-2 sm:p-4">
+                <CardHeader className="flex gap-3 mb-3">
+                    <div className="flex flex-col">
+                        <p className="text-2xl sm:text-3xl font-bold">New Order</p>
                     </div>
-                    <div className="flow-root">
-                        <ListMoviesInOrder
-                            updateQuantity={updateQuantity}
-                            deleteMoviesSelect={deleteMoviesSelect}
-                            moviesInOrder={moviesInOrder}
-                        />
-                    </div>
+                </CardHeader>
+                <CardBody>
+                    <OrderSearch
+                        moviesInSelect={moviesInSelect}
+                        updateMoviesSelect={updateMoviesSelect}
+                    />
+                    <MoviesInOrder
+                        updateQuantity={updateQuantity}
+                        deleteMoviesSelect={deleteMoviesSelect}
+                        moviesInOrder={moviesInOrder}
+                    />
                     <ButtonSubmit moviesInOrder={moviesInOrder} />
                     <SectionNewMovie />
-                </div>
-            </div>
-        </>
+                </CardBody>
+            </Card>
+        </div>
     );
 };

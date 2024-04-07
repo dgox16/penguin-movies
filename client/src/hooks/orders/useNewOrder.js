@@ -6,8 +6,8 @@ export const useNewOrder = () => {
     const [moviesInSelect, setMoviesInSelect] = useState(movies);
     const [moviesInOrder, setMoviesInOrder] = useState([]);
 
-    const updateMoviesSelect = (data) => {
-        setMoviesInSelect(moviesInSelect.filter((movie) => movie._id !== data.value));
+    const updateMoviesSelect = (id) => {
+        setMoviesInSelect(moviesInSelect.filter((movie) => movie._id !== id));
     };
 
     const updateQuantity = (event) => {
@@ -21,14 +21,20 @@ export const useNewOrder = () => {
     };
 
     const deleteMoviesSelect = (event) => {
+        console.info("das");
         const id = event.target.id;
+        console.info(id);
         const moviesToSelect = moviesInOrder.filter((movie) => movie._id !== id);
-        const moviesAux = movies.filter((ar) => !moviesToSelect.find((rm) => ar._id === rm._id));
+        const moviesAux = movies.filter(
+            (ar) => !moviesToSelect.find((rm) => ar._id === rm._id),
+        );
         setMoviesInSelect(moviesAux);
     };
 
     useEffect(() => {
-        const moviesAux = movies.filter((ar) => !moviesInSelect.find((rm) => ar._id === rm._id));
+        const moviesAux = movies.filter(
+            (ar) => !moviesInSelect.find((rm) => ar._id === rm._id),
+        );
         setMoviesInOrder(
             moviesAux.map((movie) => {
                 return {

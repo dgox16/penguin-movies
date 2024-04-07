@@ -28,7 +28,6 @@ export const adminRequired = (req, res, next) => {
             return res.status(403).json({ error: "Token invalid" });
         }
         if (!user.isAdmin) {
-            console.info("No eres admin");
             return res.status(403).json({ error: "Token invalid" });
         }
         req.user = await User.findById(user.id);

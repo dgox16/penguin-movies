@@ -21,7 +21,6 @@ export const NavbarSearch = ({ elementsWidth }) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const selectionHandler = (id) => {
-        console.info(id);
         if (id !== null) {
             navigate(`/movies/${id}`, { replace: true });
         }
@@ -49,7 +48,7 @@ export const NavbarSearch = ({ elementsWidth }) => {
                             </ModalHeader>
                             <ModalBody>
                                 <Autocomplete
-                                    label="Write your movie..."
+                                    label="Search your movie..."
                                     onSelectionChange={(e) => {
                                         selectionHandler(e);
                                         onClose();
