@@ -73,7 +73,7 @@ export const Login = () => {
 
     return (
         <>
-            <div className="flex justify-center h-screen -mt-8 sm:-mt-16 pt-16 items-center">
+            <div className="flex justify-center h-screen -mt-0 sm:-mt-16 pt-16 items-center">
                 <Card className="mx-6">
                     <CardHeader className="flex items-center justify-center mt-2">
                         <h1 className="text-4xl md:text-5xl font-black">LOGIN</h1>
