@@ -24,7 +24,6 @@ export const newOrder = async (req, res) => {
                 new: true,
             },
         );
-        console.log(modifiedPost);
     });
 
     const newOrder = new Orders({ user: new ObjectId(id), movies });

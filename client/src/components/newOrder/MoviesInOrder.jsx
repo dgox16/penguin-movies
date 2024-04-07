@@ -1,7 +1,34 @@
 import { Button, Divider } from "@nextui-org/react";
 import { MoviesInOrderCard } from "./MoviesInOrderCard";
+import { useNavigate } from "react-router-dom";
+import { useMoviesStore } from "../../store/movies";
+import { useOrdersStore } from "../../store/orders";
+import { getOrdersRequest, newOrderRequest } from "../../services/ordersRequest";
+import { getAllMoviesRequest } from "../../services/moviesRequest";
 
 export const MoviesInOrder = ({ moviesInOrder, deleteMoviesSelect, updateQuantity }) => {
+    const navigate = useNavigate();
+    const { setMovies } = useMoviesStore();
+    const { setOrders } = useOrdersStore();
+
+    const updateMoviesStock = async (movies) => {
+        const order = movies.map((movie) => {
+            return {
+                movie: movie._id,
+                quantity: movie.quantity,
+            };
+        });
+        const res = await newOrderRequest(order);
+        const moviesAll = await getAllMoviesRequest();
+        const ordersAll = await getOrdersRequest();
+        setMovies(moviesAll);
+        setOrders(ordersAll);
+    };
+
+    const handleSubmit = () => {
+        updateMoviesStock(moviesInOrder);
+        navigate("/inventory");
+    };
     return (
         <>
             {moviesInOrder.length !== 0 ? (
@@ -22,8 +49,7 @@ export const MoviesInOrder = ({ moviesInOrder, deleteMoviesSelect, updateQuantit
                             type="button"
                             color="success"
                             className="w-full sm:w-auto"
-                            // size={buttonSize}
-                            // onClick={handleSubmit}
+                            onClick={handleSubmit}
                         >
                             Complete the order
                         </Button>
