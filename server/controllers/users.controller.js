@@ -73,6 +73,7 @@ export const login = async (req, res) => {
         id: user._id,
         username: user.username,
         isAdmin: user.isAdmin,
+        shoppingCart: user.shoppingCart,
     };
 
     const token = jwt.sign(userForToken, SECRET, {
@@ -103,7 +104,7 @@ export const logout = async (req, res) => {
         return res.status(401).json({ error: "No token", isSessionClosed: false });
     }
 
-    jwt.verify(token, SECRET, async (err) => {
+    jwt.verify(token, SECRET, (err) => {
         if (err) {
             return res
                 .status(401)
@@ -121,7 +122,7 @@ export const logout = async (req, res) => {
     });
 };
 
-export const verify = async (req, res) => {
+export const verify = (req, res) => {
     const { token } = req.cookies;
 
     if (!token) {
