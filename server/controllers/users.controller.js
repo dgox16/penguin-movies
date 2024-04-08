@@ -5,11 +5,6 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import { serialize } from "cookie";
 
-export const getUsers = async (_req, res) => {
-    const users = await User.find().populate("shoppingCart");
-    res.json(users);
-};
-
 export const register = async (req, res) => {
     const { username, password, firstName, lastName } = req.body;
     const passwordHash = await encryptPassword(password);
