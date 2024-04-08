@@ -39,7 +39,15 @@ export const saveMovie = async (req, res) => {
             public_id: result.public_id,
         };
     }
-    const newMovie = new Movie({ title, year, image, rating, description, price, stock });
+    const newMovie = new Movie({
+        title,
+        year,
+        image,
+        rating: rating * 2,
+        description,
+        price,
+        stock,
+    });
     const movie = await newMovie.save();
     const { _id, ...rest } = movie.toObject();
     const formattedMovie = { id: _id, ...rest };
