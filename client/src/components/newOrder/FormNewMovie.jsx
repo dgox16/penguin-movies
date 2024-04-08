@@ -2,93 +2,139 @@ import { useForm } from "react-hook-form";
 import { useMoviesStore } from "../../store/movies";
 import { newMovieOrderRequest } from "../../services/moviesRequest";
 
+import { Slider, Button, Input, Spacer, Textarea } from "@nextui-org/react";
+import { useState } from "react";
+
 export const FormNewMovie = () => {
     const { setMovies, movies } = useMoviesStore();
-
+    const [isUploading, setIsUploading] = useState(false);
+    const [ratingSlider, setRatingSlider] = useState(2.5);
     const {
         register,
         handleSubmit,
         formState: { errors },
+        setValue,
     } = useForm();
 
     const addMovie = async (values) => {
+        setIsUploading(true);
         const res = await newMovieOrderRequest(values);
         setMovies([...movies, res]);
+        setIsUploading(false);
     };
 
     const onSubmit = handleSubmit((values) => {
         addMovie(values);
     });
+    const handleSliderChange = (newValue) => {
+        setRatingSlider(newValue);
+        setValue("rating", newValue);
+    };
 
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <div className="mb-6">
-                    <label
-                        htmlFor="email"
-                        className="block mb-2 font-medium text-gray-900 dark:text-white"
+                <Input
+                    {...register("title", {
+                        required: "This is required",
+                    })}
+                    type="text"
+                    variant="bordered"
+                    size="lg"
+                    className="font-semibold"
+                    label="TITLE:"
+                    labelPlacement={"outside"}
+                    placeholder="Enter the title for the movie"
+                    isInvalid={errors.title ? true : false}
+                    errorMessage={errors.title?.message}
+                />
+                <Spacer y={6} />
+                <Textarea
+                    {...register("description", {
+                        required: "This is required",
+                    })}
+                    label="DESCRIPTION:"
+                    variant="bordered"
+                    className="font-semibold"
+                    labelPlacement="outside"
+                    placeholder="Enter your description"
+                    isInvalid={errors.description ? true : false}
+                    errorMessage={errors.description?.message}
+                />
+                <Spacer y={6} />
+                <Slider
+                    size="lg"
+                    step={0.5}
+                    color="warning"
+                    label="RATING:"
+                    maxValue={5}
+                    minValue={1}
+                    onChange={handleSliderChange}
+                    defaultValue={2.5}
+                    className="max-w-md font-semibold"
+                />
+                <Spacer y={6} />
+                <input
+                    type="hidden"
+                    name="rating"
+                    defaultValue={ratingSlider}
+                    {...register("rating")}
+                />
+                <Input
+                    {...register("year", {
+                        required: "This is required",
+                    })}
+                    type="number"
+                    variant="bordered"
+                    size="lg"
+                    className="font-semibold"
+                    label="RELEASE YEAR:"
+                    labelPlacement={"outside"}
+                    placeholder="Enter the release year"
+                    isInvalid={errors.year ? true : false}
+                    errorMessage={errors.year?.message}
+                />
+                <Spacer y={6} />
+                <Input
+                    {...register("price", {
+                        required: "This is required",
+                    })}
+                    type="number"
+                    variant="bordered"
+                    size="lg"
+                    className="font-semibold"
+                    label="PRICE ($):"
+                    labelPlacement={"outside"}
+                    placeholder="Enter the price of the movie"
+                    isInvalid={errors.price ? true : false}
+                    errorMessage={errors.price?.message}
+                />
+                <Spacer y={6} />
+                <Input
+                    {...register("image", {
+                        required: "This is required",
+                    })}
+                    type="file"
+                    // variant="bordered"
+                    size="lg"
+                    className="font-semibold"
+                    label="MOVIE POSTER:"
+                    labelPlacement={"outside"}
+                    placeholder="Add the movie poster"
+                    isInvalid={errors.image ? true : false}
+                    errorMessage={errors.image?.message}
+                />
+
+                <div className="flex justify-end mt-5">
+                    <Button
+                        type="submit"
+                        color="primary"
+                        className="w-full sm:w-auto"
+                        isLoading={isUploading}
                     >
-                        The title:
-                    </label>
-                    <input
-                        type="text"
-                        {...register("title", { required: true })}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Title"
-                    />
-                    {errors.title && <p className="text-red-500">Title is required</p>}
+                        {isUploading ? "Loading" : "Add Movie"}
+                    </Button>
                 </div>
-                <div className="mb-6">
-                    <label
-                        htmlFor="email"
-                        className="block mb-2 font-medium text-gray-900 dark:text-white"
-                    >
-                        The year:
-                    </label>
-                    <input
-                        type="number"
-                        {...register("year", { required: true })}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Year"
-                    />
-                    {errors.year && <p className="text-red-500">Year is required</p>}
-                </div>
-                <div className="mb-6">
-                    <label
-                        htmlFor="email"
-                        className="block mb-2 font-medium text-gray-900 dark:text-white"
-                    >
-                        The Price:
-                    </label>
-                    <input
-                        type="number"
-                        {...register("price", { required: true })}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Price"
-                    />
-                    {errors.price && <p className="text-red-500">Price is required</p>}
-                </div>
-                <div className="mb-6">
-                    <label
-                        htmlFor="email"
-                        className="block mb-2 font-medium text-gray-900 dark:text-white"
-                    >
-                        The Image:
-                    </label>
-                    <input
-                        type="file"
-                        {...register("image", { required: true })}
-                        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                        placeholder="Image"
-                    />
-                    {errors.image && <p className="text-red-500">ERRORS</p>}
-                </div>
-                <button
-                    type="submit"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                    Add
-                </button>
             </form>
         </div>
     );

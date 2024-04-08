@@ -28,7 +28,7 @@ export const getMovie = async (req, res) => {
 };
 
 export const saveMovie = async (req, res) => {
-    const { title, year, price, stock } = req.body;
+    const { title, year, rating, description, price, stock } = req.body;
     let image = {};
 
     if (req.files?.image) {
@@ -39,9 +39,11 @@ export const saveMovie = async (req, res) => {
             public_id: result.public_id,
         };
     }
-    const newMovie = new Movie({ title, year, image, price, stock });
+    const newMovie = new Movie({ title, year, image, rating, description, price, stock });
     const movie = await newMovie.save();
-    res.json(movie);
+    const { _id, ...rest } = movie.toObject();
+    const formattedMovie = { id: _id, ...rest };
+    res.json(formattedMovie);
 };
 
 export const getMoviesByWord = async (req, res) => {
