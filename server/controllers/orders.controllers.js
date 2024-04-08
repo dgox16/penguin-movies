@@ -3,10 +3,6 @@ import Orders from "../models/Orders.js";
 import { ObjectId } from "mongodb";
 
 export const newOrder = async (req, res) => {
-    if (!req.user.isAdmin) {
-        return res.status(400).send({ error: "You are not an admin" });
-    }
-
     const { id } = req.user;
 
     const movies = req.body.map((m) => {
@@ -33,10 +29,6 @@ export const newOrder = async (req, res) => {
 };
 
 export const getAllOrders = async (req, res) => {
-    if (!req.user.isAdmin) {
-        return res.status(400).send({ error: "You are not an admin" });
-    }
-
     const orders = await Orders.find().populate("movies.movie").populate("user");
 
     const ordersFormatted = orders.map((item) => {

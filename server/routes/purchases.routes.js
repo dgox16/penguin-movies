@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { authRequired } from "../middleware/checkUser.js";
+import { adminRequired } from "../middleware/checkUser.js";
 import { getAllPurchases } from "../controllers/purchases.controller.js";
 
 const router = Router();
 
-router.get("/api/purchases/", authRequired, getAllPurchases);
+router.get("/api/purchases/", adminRequired, getAllPurchases);
 
 export default router;

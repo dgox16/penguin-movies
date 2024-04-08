@@ -115,7 +115,6 @@ export const FormNewMovie = () => {
                         required: "This is required",
                     })}
                     type="file"
-                    // variant="bordered"
                     size="lg"
                     className="font-semibold"
                     label="MOVIE POSTER:"
