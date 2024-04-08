@@ -13,7 +13,7 @@ export const newOrder = async (req, res) => {
     });
 
     movies.forEach(async (movie) => {
-        const modifiedPost = await Movie.findByIdAndUpdate(
+        await Movie.findByIdAndUpdate(
             movie.movie,
             { $inc: { stock: movie.quantity } },
             {
@@ -23,12 +23,26 @@ export const newOrder = async (req, res) => {
     });
 
     const newOrder = new Orders({ user: new ObjectId(id), movies });
-
     const order = await newOrder.save();
-    res.json(order);
+
+    const { _id, movies: moviesOrder, createdAt } = order;
+    const moviesFormatted = moviesOrder.map((movie) => {
+        const { _id, title } = movie.movie;
+        return {
+            id: _id,
+            title,
+            quantity: movie.quantity,
+        };
+    });
+    res.json({
+        id: _id,
+        user: req.user.username,
+        movies: moviesFormatted,
+        createdAt: createdAt,
+    });
 };
 
-export const getAllOrders = async (req, res) => {
+export const getAllOrders = async (_req, res) => {
     const orders = await Orders.find().populate("movies.movie").populate("user");
 
     const ordersFormatted = orders.map((item) => {
