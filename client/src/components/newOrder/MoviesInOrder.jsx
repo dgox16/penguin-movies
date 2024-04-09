@@ -3,13 +3,13 @@ import { MoviesInOrderCard } from "./MoviesInOrderCard";
 import { useNavigate } from "react-router-dom";
 import { useMoviesStore } from "../../store/movies";
 import { useOrdersStore } from "../../store/orders";
-import { getOrdersRequest, newOrderRequest } from "../../services/ordersRequest";
+import { newOrderRequest } from "../../services/ordersRequest";
 import { getAllMoviesRequest } from "../../services/moviesRequest";
 
 export const MoviesInOrder = ({ moviesInOrder, deleteMoviesSelect, updateQuantity }) => {
     const navigate = useNavigate();
     const { setMovies } = useMoviesStore();
-    const { setOrders } = useOrdersStore();
+    const { setOrders, orders } = useOrdersStore();
 
     const updateMoviesStock = async (movies) => {
         const order = movies.map((movie) => {
@@ -19,11 +19,9 @@ export const MoviesInOrder = ({ moviesInOrder, deleteMoviesSelect, updateQuantit
             };
         });
         const res = await newOrderRequest(order);
-        console.info(res);
         const moviesAll = await getAllMoviesRequest();
-        const ordersAll = await getOrdersRequest();
         setMovies(moviesAll);
-        setOrders(ordersAll);
+        setOrders([...orders, res]);
     };
 
     const handleSubmit = () => {

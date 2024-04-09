@@ -22,7 +22,6 @@ export const useNewOrder = () => {
 
     const deleteMoviesSelect = (event) => {
         const id = event.target.id;
-        console.info(id);
         const moviesToSelect = moviesInOrder.filter((movie) => movie.id !== id);
         const moviesAux = movies.filter(
             (ar) => !moviesToSelect.find((rm) => ar.id === rm.id),
