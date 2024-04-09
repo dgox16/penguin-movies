@@ -1,27 +1,34 @@
 import { Button, Divider } from "@nextui-org/react";
 import { MoviesInOrderCard } from "./MoviesInOrderCard";
-import { useNavigate } from "react-router-dom";
 import { useMoviesStore } from "../../store/movies";
 import { useOrdersStore } from "../../store/orders";
 import { newOrderRequest } from "../../services/ordersRequest";
-import { getAllMoviesRequest } from "../../services/moviesRequest";
 
 export const MoviesInOrder = ({ moviesInOrder, deleteMoviesSelect, updateQuantity }) => {
-    const navigate = useNavigate();
-    const { setMovies } = useMoviesStore();
+    const { setMovies, movies } = useMoviesStore();
     const { setOrders, orders } = useOrdersStore();
 
-    const updateMoviesStock = async (movies) => {
-        const order = movies.map((movie) => {
+    const updateStock = (moviesToUpdated, moviesInOrder) => {
+        moviesInOrder.forEach((item) => {
+            const movieAux = moviesToUpdated.find((m) => m.id === item.id);
+            if (movieAux) {
+                movieAux.stock += Number.parseInt(item.quantity);
+            }
+        });
+        return moviesToUpdated;
+    };
+
+    const updateMoviesStock = async (moviesInOrder) => {
+        const order = moviesInOrder.map((movie) => {
             return {
                 movie: movie.id,
                 quantity: movie.quantity,
             };
         });
-        const res = await newOrderRequest(order);
-        const moviesAll = await getAllMoviesRequest();
-        setMovies(moviesAll);
-        setOrders([...orders, res]);
+        const newOrder = await newOrderRequest(order);
+        const moviesUpdated = updateStock(movies, moviesInOrder);
+        setMovies(moviesUpdated);
+        setOrders([...orders, newOrder]);
     };
 
     const handleSubmit = () => {
