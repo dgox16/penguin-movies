@@ -1,9 +1,8 @@
-import { useForm } from "react-hook-form";
-import { useMoviesStore } from "../../store/movies";
-import { newMovieOrderRequest } from "../../services/moviesRequest";
-
-import { Slider, Button, Input, Spacer, Textarea } from "@nextui-org/react";
+import { Button, Input, Slider, Spacer, Textarea } from "@nextui-org/react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { newMovieOrderRequest } from "../../services/moviesRequest";
+import { useMoviesStore } from "../../store/movies";
 
 export const FormNewMovie = () => {
     const { setMovies, movies } = useMoviesStore();
