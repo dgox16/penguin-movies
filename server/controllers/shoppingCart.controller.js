@@ -38,7 +38,9 @@ export const updateShoppingCart = async (req, res) => {
 };
 
 export const buyShoppingCart = async (req, res) => {
-    const shoppingCart = await ShoppingCart.findById(req.user.shoppingCart);
+    const shoppingCart = await ShoppingCart.findById(req.user.shoppingCart).populate(
+        "movies.movie",
+    );
 
     shoppingCart.movies.forEach(async (movie) => {
         await Movie.findByIdAndUpdate(
@@ -58,11 +60,28 @@ export const buyShoppingCart = async (req, res) => {
     const newPurchase = new Purchase({ user: req.user.id, movies });
     await newPurchase.save();
 
+    const { _id, createdAt } = newPurchase;
+    const moviesFormatted = movies.map((item) => {
+        const { _id, title } = item.movie;
+        return {
+            id: _id,
+            title,
+            quantity: item.quantity,
+        };
+    });
+
+    const purchaseFormatted = {
+        id: _id,
+        user: req.user.username,
+        movies: moviesFormatted,
+        createdAt: createdAt,
+    };
+
     await ShoppingCart.findByIdAndUpdate(
         req.user.shoppingCart,
         { movies: [] },
         { new: true },
     );
 
-    res.json({ status: "The shopping cart has been purchased." });
+    res.json(purchaseFormatted);
 };

@@ -15,12 +15,11 @@ import { usePurchasesStore } from "../store/purchases";
 import { useShoppingCartStore } from "../store/shoppingCart";
 import { useScreenSize } from "../hooks/useSizeWindow";
 import { buyShoppingCartRequest } from "../services/shoppingCartRequest";
-import { getPurchasesRequest } from "../services/purchasesRequest";
 
 export const ShoppingCart = () => {
     const { shoppingCart, setShoppingCart } = useShoppingCartStore();
     const { setMovies, movies } = useMoviesStore();
-    const { setPurchases } = usePurchasesStore();
+    const { setPurchases, purchases } = usePurchasesStore();
     const { width } = useScreenSize();
     const navigate = useNavigate();
     useUpdateShoppingCart();
@@ -38,10 +37,9 @@ export const ShoppingCart = () => {
     const buyShoppingCart = async () => {
         const moviesUpdated = updateStock(movies, shoppingCart);
         setMovies(moviesUpdated);
-        await buyShoppingCartRequest();
+        const newPurchase = await buyShoppingCartRequest();
         setShoppingCart([]);
-        const purchasesAll = await getPurchasesRequest();
-        setPurchases(purchasesAll);
+        setPurchases([...purchases, newPurchase]);
     };
 
     const handleSubmit = () => {
