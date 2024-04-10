@@ -1,9 +1,9 @@
 import app from "./app.js";
-import { connectedDB } from "./db.js";
+import { connectedDb } from "./db.js";
 import { PORT } from "./envConfig.js";
 
-connectedDB();
+connectedDb();
 
 app.listen(PORT, () => {
-	console.log("Server in port", PORT);
+    console.info("Server in port", PORT);
 });

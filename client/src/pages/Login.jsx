@@ -82,7 +82,7 @@ export const Login = () => {
                         <div className="px-2 py-6 md:px-8 md:py-12">
                             {loginError.map((err) => (
                                 <div
-                                    className="bg-red-500 mb-3 font-bold text-center text-white rounded-md p-4"
+                                    className="bg-red-500 mb-12 font-bold text-center text-white rounded-md p-4"
                                     key={err}
                                 >
                                     {err}
