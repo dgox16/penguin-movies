@@ -28,6 +28,16 @@ app.use(
         credentials: true,
     }),
 );
+app.use((err, req, res, next) => {
+    if (err instanceof Error) {
+        res.status(403).json({
+            success: false,
+            message: err.message,
+        });
+    } else {
+        next();
+    }
+});
 
 app.use(morgan("dev"));
 app.use(express.json());
