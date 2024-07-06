@@ -6,137 +6,137 @@ import jwt from "jsonwebtoken";
 import { serialize } from "cookie";
 
 export const register = async (req, res) => {
-    const { username, password, firstName, lastName } = req.body;
-    const passwordHash = await encryptPassword(password);
+	const { username, password, firstName, lastName } = req.body;
+	const passwordHash = await encryptPassword(password);
 
-    const userFound = await User.findOne({ username });
+	const userFound = await User.findOne({ username });
 
-    if (userFound) {
-        return res.status(401).json(["This username already exist"]);
-    }
+	if (userFound) {
+		return res.status(401).json(["This username already exist"]);
+	}
 
-    const newShoppingCart = new ShoppingCart({ movies: [] });
-    await newShoppingCart.save();
-    const newUser = new User({
-        username,
-        password: passwordHash,
-        firstName,
-        lastName,
-        isAdmin: false,
-        shoppingCart: newShoppingCart._id,
-    });
-    const user = await newUser.save();
+	const newShoppingCart = new ShoppingCart({ movies: [] });
+	await newShoppingCart.save();
+	const newUser = new User({
+		username,
+		password: passwordHash,
+		firstName,
+		lastName,
+		isAdmin: false,
+		shoppingCart: newShoppingCart._id,
+	});
+	const user = await newUser.save();
 
-    const userForToken = {
-        id: user._id,
-        username: user.username,
-        isAdmin: user.isAdmin,
-    };
+	const userForToken = {
+		id: user._id,
+		username: user.username,
+		isAdmin: user.isAdmin,
+	};
 
-    const token = jwt.sign(userForToken, SECRET, {
-        expiresIn: 60 * 60 * 24 * 7,
-    });
+	const token = jwt.sign(userForToken, SECRET, {
+		expiresIn: 60 * 60 * 24 * 7,
+	});
 
-    const serialized = serialize("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-        maxAge: 60 * 40 * 24 * 7,
-        path: "/",
-    });
+	const serialized = serialize("token", token, {
+		httpOnly: true,
+		secure: process.env.NODE_ENV === "production",
+		sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+		maxAge: 60 * 40 * 24 * 7,
+		path: "/",
+	});
 
-    res.setHeader("Set-Cookie", serialized);
+	res.setHeader("Set-Cookie", serialized);
 
-    res.send({
-        name: user.firstName,
-        username: user.username,
-        isAdmin: user.isAdmin,
-    });
+	res.send({
+		name: user.firstName,
+		username: user.username,
+		isAdmin: user.isAdmin,
+	});
 };
 
 export const login = async (req, res) => {
-    const { username, password } = req.body;
+	const { username, password } = req.body;
 
-    const user = await User.findOne({ username });
-    const passwordCorrect =
-        user == null ? false : await comparePassword(user.password, password);
+	const user = await User.findOne({ username });
+	const passwordCorrect =
+		user == null ? false : await comparePassword(user.password, password);
 
-    if (!passwordCorrect) {
-        return res.status(401).json(["Invalid user or password"]);
-    }
-    const userForToken = {
-        id: user._id,
-        username: user.username,
-        isAdmin: user.isAdmin,
-        shoppingCart: user.shoppingCart,
-    };
+	if (!passwordCorrect) {
+		return res.status(401).json(["Invalid user or password"]);
+	}
+	const userForToken = {
+		id: user._id,
+		username: user.username,
+		isAdmin: user.isAdmin,
+		shoppingCart: user.shoppingCart,
+	};
 
-    const token = jwt.sign(userForToken, SECRET, {
-        expiresIn: 60 * 60 * 24 * 7,
-    });
+	const token = jwt.sign(userForToken, SECRET, {
+		expiresIn: 60 * 60 * 24 * 7,
+	});
 
-    const serialized = serialize("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-        maxAge: 60 * 40 * 24 * 7,
-        path: "/",
-    });
+	const serialized = serialize("token", token, {
+		httpOnly: true,
+		secure: process.env.NODE_ENV === "production",
+		sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+		maxAge: 60 * 40 * 24 * 7,
+		path: "/",
+	});
 
-    res.setHeader("Set-Cookie", serialized);
+	res.setHeader("Set-Cookie", serialized);
 
-    res.send({
-        name: user.firstName,
-        username: user.username,
-        isAdmin: user.isAdmin,
-    });
+	res.send({
+		name: user.firstName,
+		username: user.username,
+		isAdmin: user.isAdmin,
+	});
 };
 
 export const logout = async (req, res) => {
-    const { token } = req.cookies;
+	const { token } = req.cookies;
 
-    if (!token) {
-        return res.status(401).json({ error: "No token", isSessionClosed: false });
-    }
+	if (!token) {
+		return res.status(401).json({ error: "No token", isSessionClosed: false });
+	}
 
-    jwt.verify(token, SECRET, (err) => {
-        if (err) {
-            return res
-                .status(401)
-                .json({ error: "Unauthorized", isSessionClosed: false });
-        }
-        const serialized = serialize("token", null, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-            maxAge: 0,
-            path: "/",
-        });
-        res.setHeader("Set-Cookie", serialized);
-        res.status(200).json({ isSessionClosed: true });
-    });
+	jwt.verify(token, SECRET, (err) => {
+		if (err) {
+			return res
+				.status(401)
+				.json({ error: "Unauthorized", isSessionClosed: false });
+		}
+		const serialized = serialize("token", "", {
+			httpOnly: true,
+			secure: process.env.NODE_ENV === "production",
+			sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+			maxAge: -1,
+			path: "/",
+		});
+		res.setHeader("Set-Cookie", serialized);
+		res.status(200).json({ isSessionClosed: true });
+	});
 };
 
 export const verify = (req, res) => {
-    const { token } = req.cookies;
+	const { token } = req.cookies;
 
-    if (!token) {
-        return res.status(401).json({ error: "No token" });
-    }
+	if (!token) {
+		return res.status(401).json({ error: "No token" });
+	}
 
-    jwt.verify(token, SECRET, async (err, user) => {
-        if (err) {
-            return res.status(401).json({ error: "Unauthorized" });
-        }
-        const userFound = await User.findById(user.id);
-        if (!userFound) {
-            return res.status(401).json({ error: "Unauthorized" });
-        }
-        return res.json({
-            id: userFound._id,
-            username: userFound.username,
-            shoppingCart: userFound.shoppingCart,
-            isAdmin: userFound.isAdmin,
-        });
-    });
+	jwt.verify(token, SECRET, async (err, user) => {
+		if (err) {
+			return res.status(401).json({ error: "Unauthorized" });
+		}
+		const userFound = await User.findById(user.id);
+		if (!userFound) {
+			return res.status(401).json({ error: "Unauthorized" });
+		}
+		return res.json({
+			id: userFound._id,
+			username: userFound.username,
+			shoppingCart: userFound.shoppingCart,
+			isAdmin: userFound.isAdmin,
+		});
+	});
 };
