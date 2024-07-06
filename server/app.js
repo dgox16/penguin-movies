@@ -13,7 +13,7 @@ const app = express();
 
 const urlFrontend =
 	process.env.NODE_ENV === "production"
-		? "https://client-production-d073.up.railway.app/"
+		? "https://client-production-d073.up.railway.app"
 		: "http://localhost:5173";
 
 app.use(
