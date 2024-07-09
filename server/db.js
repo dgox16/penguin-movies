@@ -4,7 +4,10 @@ import { MONGODB_URI } from "./envConfig.js";
 export async function connectedDb() {
 	if (!mongoose.connection.readyState) {
 		try {
-			const db = await mongoose.connect(MONGODB_URI);
+			const db = await mongoose.connect(MONGODB_URI, {
+				autoIndex: false,
+				maxPoolSize: 4,
+			});
 
 			console.info("Connected to ", db.connection.name);
 		} catch (error) {
