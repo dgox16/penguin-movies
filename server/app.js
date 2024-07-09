@@ -39,7 +39,23 @@ app.use((err, req, res, next) => {
 	}
 });
 
-app.use(morgan("dev"));
+app.use(morgan("combined"));
+
+// Middleware personalizado para registrar el cuerpo de las solicitudes
+app.use((req, res, next) => {
+	if (req.method === "POST" || req.method === "PUT") {
+		let body = "";
+		req.on("data", (chunk) => {
+			body += chunk.toString();
+		});
+		req.on("end", () => {
+			console.log(`Request Body: ${body}`);
+			next();
+		});
+	} else {
+		next();
+	}
+});
 app.use(express.json());
 app.use(
 	fileupload({
