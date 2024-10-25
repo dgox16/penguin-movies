@@ -15,46 +15,50 @@ import { Purchases } from "./pages/Purchases";
 import { NavbarMain } from "./components/ui/Navbar/NavbarMain";
 
 function App() {
-    const navigate = useNavigate();
-    const { user } = useAuthStore();
-    const { loadingMovies, loadingOrders, loadingPurchases, loadingShoppingCart } =
-        useAllDataFetch();
+	const navigate = useNavigate();
+	const { user } = useAuthStore();
+	const {
+		loadingMovies,
+		loadingOrders,
+		loadingPurchases,
+		loadingShoppingCart,
+	} = useAllDataFetch();
 
-    if (user === null && loadingMovies) {
-        return <LoadingScreen />;
-    }
+	// if (user === null && loadingMovies) {
+	//     return <LoadingScreen />;
+	// }
 
-    if (user !== null) {
-        if (user.isAdmin && (loadingOrders || loadingPurchases)) {
-            return <LoadingScreen />;
-        }
+	if (user !== null) {
+		if (user.isAdmin && (loadingOrders || loadingPurchases)) {
+			return <LoadingScreen />;
+		}
 
-        if (loadingMovies || loadingShoppingCart) {
-            return <LoadingScreen />;
-        }
-    }
+		if (loadingMovies || loadingShoppingCart) {
+			return <LoadingScreen />;
+		}
+	}
 
-    return (
-        <NextUIProvider navigate={navigate}>
-            <header>
-                <NavbarMain />
-            </header>
-            <main className="dark text-foreground bg-background">
-                <Routes>
-                    <Route element={<ProtectedRoutes />}>
-                        <Route path="/orders/new" element={<NewOrder />} />
-                        <Route path="/inventory" element={<Inventory />} />
-                        <Route path="/shoppingCart" element={<ShoppingCart />} />
-                        <Route path="/purchases" element={<Purchases />} />
-                    </Route>
-                    <Route path="/movies/:id" element={<ViewMovie />} />
-                    <Route path="/" element={<Home />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/login" element={<Login />} />
-                </Routes>
-            </main>
-        </NextUIProvider>
-    );
+	return (
+		<NextUIProvider navigate={navigate}>
+			<header>
+				<NavbarMain />
+			</header>
+			<main className="dark text-foreground bg-background">
+				<Routes>
+					<Route element={<ProtectedRoutes />}>
+						<Route path="/orders/new" element={<NewOrder />} />
+						<Route path="/inventory" element={<Inventory />} />
+						<Route path="/shoppingCart" element={<ShoppingCart />} />
+						<Route path="/purchases" element={<Purchases />} />
+					</Route>
+					<Route path="/movies/:id" element={<ViewMovie />} />
+					<Route path="/" element={<Home />} />
+					<Route path="/register" element={<Register />} />
+					<Route path="/login" element={<Login />} />
+				</Routes>
+			</main>
+		</NextUIProvider>
+	);
 }
 
 export default App;
