@@ -2,13 +2,13 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-COPY package.json ./
+COPY package.json pnpm-lock.yaml ./
 
 RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN pnpm build
 
 FROM caddy:2-alpine
 
