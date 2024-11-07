@@ -2,7 +2,6 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import fileupload from "express-fileupload";
-import morgan from "morgan";
 import moviesRoutes from "./routes/movies.routes.js";
 import orderRoutes from "./routes/orders.routes.js";
 import shoppingCartRoutes from "./routes/shoppingCart.routes.js";
@@ -38,8 +37,6 @@ app.use((err, req, res, next) => {
 		next();
 	}
 });
-
-app.use(morgan("dev"));
 
 app.use(express.json());
 app.use(
