@@ -5,8 +5,7 @@ export async function connectedDb() {
 	if (!mongoose.connection.readyState) {
 		try {
 			const db = await mongoose.connect(MONGODB_URI, {
-				autoIndex: false,
-				maxPoolSize: 4,
+				bufferCommands: false,
 			});
 
 			console.info("Connected to ", db.connection.name);
