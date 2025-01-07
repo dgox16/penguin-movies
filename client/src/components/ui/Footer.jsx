@@ -3,7 +3,7 @@ export const Footer = () => {
 		<footer className="mt-5 flex justify-center">
 			<div className="text-center">
 				<p className="py-3 text-text text-sm">
-					© {new Date().getFullYear()}
+					© {new Date().getFullYear()}{" "}
 					<a
 						rel="noreferrer"
 						target="_blank"
