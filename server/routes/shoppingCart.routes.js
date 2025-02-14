@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { authRequired } from "../middleware/checkUser.js";
 import {
-    buyShoppingCart,
-    getShoppingCart,
-    updateShoppingCart,
+	buyShoppingCart,
+	getShoppingCart,
+	updateShoppingCart,
 } from "../controllers/shoppingCart.controller.js";
 
 const router = Router();
