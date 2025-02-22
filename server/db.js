@@ -6,6 +6,8 @@ export async function connectedDb() {
 		try {
 			const db = await mongoose.connect(MONGODB_URI, {
 				bufferCommands: false,
+				maxPoolSize: 5,
+				socketTimeoutMS: 45000,
 			});
 
 			console.info("Connected to ", db.connection.name);
