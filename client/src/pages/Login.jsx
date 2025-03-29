@@ -82,12 +82,17 @@ export const Login = () => {
 	return (
 		<>
 			<div className="flex justify-center h-auto sm:h-screen mt-5 sm:-mt-16 pt-0 sm:pt-16 items-center">
-				<Card className="mx-6">
-					<CardHeader className="flex items-center justify-center mt-2">
-						<h1 className="text-4xl md:text-5xl font-black">LOGIN</h1>
+				<Card className="px-3 py-5 mx-3 xs:mx-3">
+					<CardHeader className="mt-2">
+						<p className="pb-4 text-left text-3xl font-bold">
+							Log In
+							<span aria-label="emoji" className="ml-2" role="img">
+								👋
+							</span>
+						</p>
 					</CardHeader>
 					<CardBody>
-						<div className="px-2 py-6 md:px-8 md:py-12">
+						<div className="">
 							{loginError.map((err) => (
 								<div
 									className="bg-red-500 mb-12 font-bold text-center text-white rounded-md p-4"
@@ -105,7 +110,7 @@ export const Login = () => {
 									variant="bordered"
 									size="lg"
 									className="font-semibold"
-									label="USERNAME"
+									label="Username"
 									labelPlacement={"outside"}
 									placeholder="Enter your username"
 									isInvalid={errors.username ? true : false}
@@ -117,7 +122,7 @@ export const Login = () => {
 										required: "This is required",
 									})}
 									size="lg"
-									label="PASSWORD"
+									label="Password"
 									className="font-semibold"
 									variant="bordered"
 									placeholder="Enter your password"
