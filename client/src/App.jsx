@@ -24,9 +24,9 @@ function App() {
 		loadingShoppingCart,
 	} = useAllDataFetch();
 
-	// if (user === null && loadingMovies) {
-	//     return <LoadingScreen />;
-	// }
+	if (user === null && loadingMovies) {
+		return <LoadingScreen />;
+	}
 
 	if (user !== null) {
 		if (user.isAdmin && (loadingOrders || loadingPurchases)) {
