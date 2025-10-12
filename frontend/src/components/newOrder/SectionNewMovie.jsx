@@ -1,0 +1,24 @@
+import { useState } from "react";
+import { FormNewMovie } from "./FormNewMovie";
+
+import { Button } from "@heroui/react";
+export const SectionNewMovie = () => {
+    const [addNewMovie, setAddNewMovie] = useState(false);
+
+    return (
+        <>
+            <div className="flex flex-col justify-center items-center mt-6">
+                <Button
+                    variant="light"
+                    size="lg"
+                    className="italic font-semibold w-full md:w-52 text-base sm:text-lg md:text-xl"
+                    color={addNewMovie ? "danger" : "success"}
+                    onClick={() => setAddNewMovie(!addNewMovie)}
+                >
+                    {addNewMovie ? "Cancel" : "Add a new movie..."}
+                </Button>
+            </div>
+            {addNewMovie && <FormNewMovie />}
+        </>
+    );
+};

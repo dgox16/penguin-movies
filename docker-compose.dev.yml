@@ -1,0 +1,43 @@
+services:
+    frontend:
+        container_name: penguin-movies-frontend-dev
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile.dev
+        ports:
+            - "5173:5173"
+        volumes:
+            - ./frontend:/app
+            - /app/node_modules
+        environment:
+            - VITE_API_URL=http://localhost:3000
+        stdin_open: true
+        tty: true
+    api:
+        container_name: penguin-movies-api-dev
+        build:
+            context: ./api
+            dockerfile: Dockerfile.dev
+        ports:
+            - "3000:80"
+        volumes:
+            - ./api:/app
+            - /app/node_modules
+        env_file:
+            - ./api/.env
+        depends_on:
+            - mongo
+        stdin_open: true
+        tty: true
+    mongo:
+        container_name: penguin-movies-db-container
+        image: mongo:8.0.13
+        env_file:
+            - ./.env.db
+        ports:
+            - "27017:27017"
+        volumes:
+            - mongo_data_penguin_movies:/data/db
+
+volumes:
+    mongo_data_penguin_movies:

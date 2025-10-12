@@ -1,0 +1,26 @@
+services:
+    frontend:
+        container_name: penguin-movies-frontend
+        image: ghcr.io/dgox16/penguin-movies-frontend:latest
+        restart: unless-stopped
+        ports:
+            - "8010:80"
+    api:
+        container_name: penguin-movies-api
+        image: ghcr.io/dgox16/penguin-movies-api:latest
+        env_file:
+            - ./api/.env.production
+        depends_on:
+            - mongo
+        ports:
+            - "8011:80"
+    mongo:
+        image: mongo:8.0.13
+        container_name: penguin-movies-db-container
+        env_file:
+            - ./.env.db
+        volumes:
+            - mongo_data_penguin_movies:/data/db
+
+volumes:
+    mongo_data_penguin_movies:
