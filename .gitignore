@@ -3,3 +3,5 @@ node_modules
 rome.json
 upload
 database_docker
+.env.db
+/api/.env.production
