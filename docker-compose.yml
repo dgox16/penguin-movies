@@ -19,6 +19,13 @@ services:
         container_name: penguin-movies-db-container
         env_file:
             - ./.env.db
+        command: >
+            mongod
+            --quiet
+            --wiredTigerCacheSizeGB 0.15
+            --wiredTigerCheckpointDelaySecs 3600
+            --wiredTigerJournalCompressor snappy
+            --bind_ip_all
         volumes:
             - mongo_data_penguin_movies:/data/db
 
