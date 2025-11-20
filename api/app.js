@@ -8,15 +8,14 @@ import shoppingCartRoutes from "./routes/shoppingCart.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import purchasesRoutes from "./routes/purchases.routes.js";
 import { URL_CLIENT } from "./envConfig.js";
+import morgan from "morgan";
 
 const app = express();
-
-const urlFrontend = URL_CLIENT;
 
 app.use(
     cors({
         origin: (origin, callback) => {
-            if (origin == urlFrontend) {
+            if (!origin || origin === URL_CLIENT) {
                 callback(null, true);
             } else {
                 callback(
@@ -28,16 +27,6 @@ app.use(
         credentials: true,
     }),
 );
-app.use((err, req, res, next) => {
-    if (err instanceof Error) {
-        res.status(403).json({
-            success: false,
-            message: err.message,
-        });
-    } else {
-        next();
-    }
-});
 
 app.use(express.json());
 app.use(
@@ -46,13 +35,24 @@ app.use(
         tempFileDir: "./upload",
     }),
 );
-
 app.use(cookieParser());
+
+morgan.token("body", (req) => JSON.stringify(req.body));
+app.use(
+    morgan(
+        ":date[iso] :method :url :status :response-time ms - IP=:remote-addr BODY=:body",
+    ),
+);
 
 app.use(moviesRoutes);
 app.use(userRoutes);
 app.use(shoppingCartRoutes);
 app.use(orderRoutes);
 app.use(purchasesRoutes);
+
+app.use((err, req, res, next) => {
+    console.error("[ERROR]", err.message);
+    res.status(500).json({ success: false, message: "Internal error" });
+});
 
 export default app;
