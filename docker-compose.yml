@@ -22,9 +22,10 @@ services:
         command: >
             mongod
             --quiet
-            --wiredTigerCacheSizeGB 0.15
-            --wiredTigerCheckpointDelaySecs 3600
-            --wiredTigerJournalCompressor snappy
+            --nojournal
+            --wiredTigerCacheSizeGB 0.1
+            --setParameter disableLogicalSessionCacheRefresh=true
+            --setParameter ttlMonitorEnabled=false
             --bind_ip_all
         volumes:
             - mongo_data_penguin_movies:/data/db
